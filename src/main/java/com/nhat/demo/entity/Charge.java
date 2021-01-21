@@ -20,7 +20,7 @@ public class Charge {
     private LocalDate chargeDate;
     private int quantity;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bookind_id")
+    @JoinColumn(name = "booking_id")
     private Booking booking;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")

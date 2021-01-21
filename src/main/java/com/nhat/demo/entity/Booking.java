@@ -29,13 +29,15 @@ public class Booking {
     @OneToMany(mappedBy = "booking")
     private List<BookingDetail> bookingDetails;
     @OneToMany(mappedBy = "booking")
-    List<Charge> charges;
+    private List<Charge> charges;
     @OneToOne
-    @JoinColumn(name = "invoice_id", nullable = true,unique = true)
+    @JoinColumn(name = "invoice_id", nullable = true, unique = true)
     private Invoice invoice;
     @OneToOne
     @JoinColumn(name = "booking_person_id")
     private BookingPerson bookingPerson;
+    @OneToMany(mappedBy = "booking")
+    private List<Transaction> transactions;
 
 
 }

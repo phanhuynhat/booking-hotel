@@ -1,0 +1,9 @@
+.welcome-section.ptb-110, .welcome-section {
+    padding: 110px 0;
+    background-image: url(https://www.hoteliermagazine.com/wp-content/uploads/2018/09/designer-experience.jpg);
+}
+
+.welcome-section {
+    padding: 110px 0;
+    background-image: url(/images/background.jpg);
+}

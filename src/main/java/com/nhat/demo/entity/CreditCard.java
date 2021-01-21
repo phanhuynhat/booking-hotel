@@ -5,11 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -23,4 +21,6 @@ public class CreditCard {
     private String cardNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiryDate;
+    @OneToMany(mappedBy = "creditCard")
+    private List<Transaction> transaction;
 }
