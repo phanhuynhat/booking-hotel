@@ -18,7 +18,7 @@ public class Room {
     private int roomNumber;
     private int floor;
     @Enumerated(EnumType.STRING)
-    private RoomStatus status = RoomStatus.AVAILABLE;
+    private Status status = Status.AVAILABLE;
     @ManyToOne
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;

@@ -19,7 +19,9 @@ public class RoomType {
     private int adultCapacity;
     private int childrenCapacity;
     private String description;
+    private String frontImage;
     private double unitPrice;
+
     @OneToMany(mappedBy = "roomType")
     private List<RoomTypeImage> roomTypeImages;
     @OneToMany(mappedBy = "roomType")

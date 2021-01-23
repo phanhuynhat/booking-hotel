@@ -21,8 +21,13 @@ public class Booking {
     private String bookingDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate cancelDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate checkInDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate checkOutDate;
     private int numberOfRoom;
     private double bookingPrice;
+    private String description;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promotion_id", nullable = true, unique = false)
     private Promotion promotion;
