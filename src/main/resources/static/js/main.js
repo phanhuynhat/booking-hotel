@@ -45,14 +45,9 @@ NOTE: If you have any note put here.
     $('.header-section.static4').parallax("50%", 0.3);
 
 
-    $('.date-picker').datepicker({
-        startDate: '-3d'
-    });
 
-    $('.select-booking').selectpicker({
-        style: 'btn-info',
-        size: 4
-    });
+
+
     /*------------------------------------
        6. Textilate Activation
     --------------------------------------*/

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,11 +18,10 @@ public class Room {
     private int roomId;
     private int roomNumber;
     private int floor;
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.AVAILABLE;
+
     @ManyToOne
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
-    @OneToOne(mappedBy = "room")
-    private BookingDetail bookingDetail;
+    @OneToMany(mappedBy = "room")
+    private List<BookingDetail> bookingDetail;
 }

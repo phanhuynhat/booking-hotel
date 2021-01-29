@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -18,29 +19,44 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookingId;
     private String bookingCode;
-    private String bookingDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate cancelDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime bookingDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime cancelDate;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkInDate;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
-    private int numberOfRoom;
+
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
+
     private double bookingPrice;
+
     private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promotion_id", nullable = true, unique = false)
     private Promotion promotion;
+
     @OneToMany(mappedBy = "booking")
     private List<BookingDetail> bookingDetails;
+
     @OneToMany(mappedBy = "booking")
     private List<Charge> charges;
+
     @OneToOne
     @JoinColumn(name = "invoice_id", nullable = true, unique = true)
     private Invoice invoice;
+
     @OneToOne
     @JoinColumn(name = "booking_person_id")
     private BookingPerson bookingPerson;
+
     @OneToMany(mappedBy = "booking")
     private List<Transaction> transactions;
 

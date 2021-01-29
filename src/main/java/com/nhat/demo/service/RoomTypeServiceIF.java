@@ -4,7 +4,7 @@ import com.nhat.demo.entity.RoomType;
 
 import java.util.List;
 
-public interface ServiceIF {
+public interface RoomTypeServiceIF {
 
     List<RoomType> getAllRoomType();
 

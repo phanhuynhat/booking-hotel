@@ -13,7 +13,6 @@ Note: This core style file includes all external plugins css file.
 @import url("materialdesignicons.min.css");
 @import url("plugins/animate.css");
 @import url("plugins/meanmenu.min.css");
-@import url("plugins/bootstrap-datepicker3.min.css");
 @import url("plugins/bootstrap-select.min.css");
 @import url("plugins/owl.carousel.css");
 @import url("plugins/owl.theme.css");
@@ -21,4 +20,7 @@ Note: This core style file includes all external plugins css file.
 @import url("plugins/magnific-popup.css");
 @import url("plugins/animated-headlines.css");
 @import url("plugins/jquery-ui.min.css");
+@import url("plugins/datepicker.css");
 @import url("shortcode/default.css");
+@import url("shortcode/default.css");
+

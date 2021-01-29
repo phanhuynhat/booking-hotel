@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Setter
 @Getter
@@ -20,10 +19,8 @@ public class BookingDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", unique = false, nullable = false)
     private Booking booking;
-    @OneToMany(mappedBy = "bookingDetail")
-    private List<GuestInRoom> guestInRooms;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", unique = true, nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", unique = false, nullable = false)
     private Room room;
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Service
-public class ServiceImpl implements ServiceIF {
+public class RoomTypeServiceImpl implements RoomTypeServiceIF {
     @Autowired
     private RoomTypeRepository roomTypeRepository;
 

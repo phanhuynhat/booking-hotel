@@ -42,29 +42,22 @@
 								<p>There are many vars of passageson't look even slightly believable.</p>
 							</div>
 							<div class="booking-form">
-								<form action="#">
+								<form th:action="@{/search-available-room}">
 									<div class="b-date arrive mb-15">
-										<input class="date-picker" type="text" placeholder="Arrive Date">
-										<i class="mdi mdi-calendar-text"></i>
+										<input class="date-picker" type="text" id="checkInDate" name="checkInDate"
+										       placeholder="check in date" required>
+<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
 									<div class="b-date departure mb-15">
-										<input class="date-picker" type="text" placeholder="Departure Date">
-										<i class="mdi mdi-calendar-text"></i>
+										<input class="date-picker" type="text" id="checkOutDate" name="checkOutDate"
+										       placeholder="check out date" required>
+<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
-									<div class="select-book mb-15">
-										<select name="book" class="select-booking">
-											<option value="" selected>Adult</option>
-											<option value="1">Teen</option>
-											<option value="1">old</option>
-										</select>
+									<div class="b-date mb-15"><input type="text" name="alduts" placeholder="Alduts" required>
 									</div>
-									<div class="select-book  mb-30">
-										<select name="book" class="select-booking">
-											<option value="" selected>Room</option>
-											<option value="1">Roome 101</option>
-											<option value="1">Roome 102</option>
-										</select>
-									</div>
+									<div class="b-date mb-15"><input type="number" name="children"
+									                                 placeholder="Children" required></div>
+
 									<div class="submit-form">
 										<button type="submit">Check Availability</button>
 									</div>
@@ -75,7 +68,7 @@
 					<div class="col-md-8 col-sm-7">
 						<div class="welcome-text">
 							<h2>
-								<span>WELCOEM TO</span> <span class="coloring">Chondo</span>
+								<span></span> <span class="coloring">Chondo</span>
 							</h2>
 							<h1 class="cd-headline clip">
 								<span>THE PERFECT</span>
@@ -164,14 +157,14 @@
 						<div class="col-md-4" th:each="type: ${roomTypes}">
 							<div class="single-room">
 								<div class="room-img">
-									<a href="#"><img th:src="@{${type.frontImage}}" alt=""></a>
+									<a href="#"><img th:src="@{${type.roomTypeImages[0].image}}" alt=""></a>
 								</div>
 								<div class="room-desc">
 									<div class="room-name">
-										<h3><a href="#" th:text="${type.getTypeName()}">Room type name</a></h3>
+										<h3><a href="#" th:text="${type.typeName}">Room type name</a></h3>
 									</div>
 									<div class="room-rent">
-										<h5>Đ [[${type.getUnitPrice()}]] / <span>Đêm</span></h5>
+										<h5> [[${type.unitPrice}]] Đ / <span>Đêm</span></h5>
 									</div>
 									<div class="room-book">
 										<a href="#">Book now</a>
@@ -802,6 +795,10 @@
 
 	<!-- jquery latest version -->
 	<script src="js/vendor/jquery-1.12.0.min.js"></script>
+
+	<!-- date picker js -->
+	<script src="js/vendor/bootstrap-datepicker.js"></script>
+
 	<!-- Bootstrap framework js -->
 	<script src="js/bootstrap.min.js"></script>
 	<!--counter up js-->
@@ -834,6 +831,37 @@
 	<!-- Main js file that contents all jQuery plugins activation. -->
 	<script src="js/main.js"></script>
 
+	<script>
+        $(function () {
+            'use strict';
+            $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+            var nowTemp = new Date(); //khai bao mot bien date
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate() , 0, 0, 0, 0);
+
+            var checkin = $('#checkInDate').datepicker({
+                onRender: function (date) {
+                    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function (ev) {
+                if (ev.date.valueOf() > checkout.date.valueOf()) {
+                    var newDate = new Date(ev.date)
+                    newDate.setDate(newDate.getDate() + 1);
+                    checkout.setValue(newDate);
+                }
+                checkin.hide();
+                $('#checkOutDate')[0].focus();
+            }).data('datepicker');
+            var checkout = $('#checkOutDate').datepicker({
+                onRender: function (date) {
+                    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+                }
+            }).on('changeDate', function (ev) {
+                checkout.hide();
+            }).data('datepicker');
+        });
+	</script>
+
+</div>
 </body>
 
 </html>
