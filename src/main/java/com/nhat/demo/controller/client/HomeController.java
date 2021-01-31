@@ -41,8 +41,8 @@ public class HomeController {
 
     @GetMapping("/room-detail")
     public String toRoomDetailPage(Model model,
-                                 @RequestParam int roomId) {
-
+                                   @RequestParam int roomId) {
+        model.addAttribute("room", roomService.getRoomById(roomId));
         return "room-detail";
     }
 

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
@@ -15,7 +14,7 @@ public class RoomTypeImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roomTypeImageId;
-    private String image;
+    private String path;
     @ManyToOne(fetch = FetchType.LAZY )
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;

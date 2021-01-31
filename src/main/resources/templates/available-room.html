@@ -98,7 +98,7 @@
 							<div class="col-md-4 col-sm-6 col-xs-12" th:each="room:${availableRooms}">
 								<div class="single-room mb-80">
 									<div class="room-img">
-										<a th:href="@{/room-detail(roomId=${room.roomId})}"><img th:src="@{${room.roomType.roomTypeImages[0].image}}"
+										<a th:href="@{/room-detail(roomId=${room.roomId})}"><img th:src="@{${room.roomType.roomTypeImages[0].path}}"
 										                 alt=""></a>
 									</div>
 									<div class="room-desc">

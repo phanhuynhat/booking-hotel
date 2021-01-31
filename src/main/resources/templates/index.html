@@ -46,14 +46,15 @@
 									<div class="b-date arrive mb-15">
 										<input class="date-picker" type="text" id="checkInDate" name="checkInDate"
 										       placeholder="check in date" required>
-<!--										<i class="mdi mdi-calendar-text"></i>-->
+										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
 									<div class="b-date departure mb-15">
 										<input class="date-picker" type="text" id="checkOutDate" name="checkOutDate"
 										       placeholder="check out date" required>
-<!--										<i class="mdi mdi-calendar-text"></i>-->
+										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
-									<div class="b-date mb-15"><input type="text" name="alduts" placeholder="Alduts" required>
+									<div class="b-date mb-15"><input type="text" name="alduts" placeholder="Alduts"
+									                                 required>
 									</div>
 									<div class="b-date mb-15"><input type="number" name="children"
 									                                 placeholder="Children" required></div>
@@ -157,7 +158,7 @@
 						<div class="col-md-4" th:each="type: ${roomTypes}">
 							<div class="single-room">
 								<div class="room-img">
-									<a href="#"><img th:src="@{${type.roomTypeImages[0].image}}" alt=""></a>
+									<a href="#"><img th:src="@{${type.roomTypeImages[0].path}}" alt=""></a>
 								</div>
 								<div class="room-desc">
 									<div class="room-name">
@@ -685,6 +686,7 @@
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -836,7 +838,7 @@
             'use strict';
             $.fn.datepicker.defaults.format = "dd/mm/yyyy";
             var nowTemp = new Date(); //khai bao mot bien date
-            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate() , 0, 0, 0, 0);
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
             var checkin = $('#checkInDate').datepicker({
                 onRender: function (date) {

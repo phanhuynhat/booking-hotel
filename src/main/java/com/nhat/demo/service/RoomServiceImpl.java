@@ -18,4 +18,9 @@ public class RoomServiceImpl implements RoomServiceIF {
         return roomRepository.findAvailableRoom(checkInDate, checkOutDate, alduts, children);
     }
 
+    @Override
+    public Room getRoomById(int id) {
+        return roomRepository.findById(id).orElse(null);
+    }
+
 }

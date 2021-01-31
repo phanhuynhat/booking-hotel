@@ -9,4 +9,6 @@ public interface RoomServiceIF {
 
     List<Room> getAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int alduts, int children);
 
+    Room getRoomById(int id);
+
 }

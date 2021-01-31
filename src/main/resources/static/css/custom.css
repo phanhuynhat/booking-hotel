@@ -7,3 +7,14 @@
     padding: 110px 0;
     background-image: url(/images/background.jpg);
 }
+
+
+.card-columns {
+    column-count: 4;
+}
+
+.card-columns li {
+    list-style: disc;
+    padding: 10px 0px;
+    font-size: 1.25em;
+}

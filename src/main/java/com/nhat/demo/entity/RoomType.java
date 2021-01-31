@@ -18,6 +18,7 @@ public class RoomType {
     private String typeName;
     private int adultCapacity;
     private int childrenCapacity;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private double unitPrice;
 
@@ -25,6 +26,9 @@ public class RoomType {
     private List<RoomTypeImage> roomTypeImages;
     @OneToMany(mappedBy = "roomType")
     private List<Room> rooms;
-
-
+    @ManyToMany
+    @JoinTable(name = "roomType_conveniences",
+            joinColumns = @JoinColumn(name = "room_type_id"),
+            inverseJoinColumns = @JoinColumn(name = "convenience_id"))
+    private List<Convenience> conveniences;
 }
