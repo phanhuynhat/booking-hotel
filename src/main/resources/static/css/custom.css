@@ -18,3 +18,34 @@
     padding: 10px 0px;
     font-size: 1.25em;
 }
+
+
+#myCarousel {
+    position: relative;
+}
+
+#myCarousel a#btnBooking{
+    position: absolute;
+    top: 46%;
+    left: 42%;
+}
+
+
+.single-room-details.fix {
+    margin-bottom: 30px;
+    border: 1px solid #3ac4fa;
+    padding: 10px;
+    position: relative;
+}
+
+.single-room-details.fix a.btn{
+    position: absolute;
+    top: 50%;
+    left: 70%;
+}
+
+
+#message {
+    color: red;
+}
+

@@ -18,7 +18,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             " ?1 >= check_in_date and ?2 <= check_out_date) " +
             "AND ?3 <= room_type.adult_capacity AND ?4 <= room_type.children_capacity"+
             " order by room_type.unit_price asc")
-    List<Room> findAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int alduts, int children);
+    List<Room> findAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int adults, int children);
 
 
 }

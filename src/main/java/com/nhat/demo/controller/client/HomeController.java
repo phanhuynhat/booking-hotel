@@ -1,5 +1,7 @@
 package com.nhat.demo.controller.client;
 
+import com.nhat.demo.entity.Room;
+import com.nhat.demo.model.BookingCart;
 import com.nhat.demo.service.RoomServiceIF;
 import com.nhat.demo.service.RoomTypeServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +11,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
+    @Autowired
+    private BookingCart bookingCart;
     @Autowired
     private RoomTypeServiceIF roomTypeService;
     @Autowired
     private RoomServiceIF roomService;
 
     @GetMapping("/")
-    public String toIndexpage(Model model) {
+    public String toIndexpage(Model model, HttpSession session) {
         model.addAttribute("roomTypes", roomTypeService.getAllRoomType());
+        System.out.println(bookingCart);
+
+
         return "index";
+
     }
 
 
@@ -29,10 +40,25 @@ public class HomeController {
     public String toOutRoomPage(Model model,
                                 @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate checkInDate,
                                 @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate checkOutDate,
-                                @RequestParam int alduts,
+                                @RequestParam int adults,
                                 @RequestParam int children) {
 
-        model.addAttribute("availableRooms", roomService.getAvailableRoom(checkInDate, checkOutDate, alduts, children));
+
+        bookingCart.setCheckInDate(checkInDate);
+        bookingCart.setCheckOutDate(checkOutDate);
+
+        List<Room> availableRoom = roomService.getAvailableRoom(checkInDate, checkOutDate, adults, children);
+
+        //can loai bo nhung room da co trong cart.
+        if (!bookingCart.getBookingItems().isEmpty()) {
+            List<Room> filtedARoomList = availableRoom.stream()
+                    .filter(room -> !bookingCart.getBookingItems().containsKey(room.getRoomId()))
+                    .collect(Collectors.toList());
+            model.addAttribute("availableRooms", filtedARoomList);
+
+        } else {
+            model.addAttribute("availableRooms", availableRoom);
+        }
 
         return "available-room";
 
@@ -82,10 +108,6 @@ public class HomeController {
         return "booking-done";
     }
 
-    @GetMapping("/room-booking")
-    public String toRoomBookingPages(Model model) {
-        return "room-booking";
-    }
 
     @GetMapping("/news")
     public String toNewsPage(Model model) {

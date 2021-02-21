@@ -1,7 +1,8 @@
-package com.nhat.demo.service;
+package com.nhat.demo.service.serviceIml;
 
 import com.nhat.demo.entity.RoomType;
 import com.nhat.demo.repository.RoomTypeRepository;
+import com.nhat.demo.service.RoomTypeServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

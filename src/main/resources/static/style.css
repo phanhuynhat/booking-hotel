@@ -1,6 +1,6 @@
 /*-----------------------------------------------------------------------------------
 
-    Template Name: Chondo hotel 
+    Template Name: Chondo hotel
     Template URI: http://hastech.company/
     Description: This is html5 template
     Author: Hastech
@@ -8,21 +8,21 @@
     Version: 1.0
 
 -----------------------------------------------------------------------------------
-    
+
     CSS INDEX
     ===================
-	
+
     1. Theme Default CSS
     2. Preloader CSS
 	3.  Header Css
-	4. Searchbar Css 
+	4. Searchbar Css
 	5. Navigation Css
     6. Home about section css
     7. our Room css
 	8. Our serivces Css
-	9. Staff css 
+	9. Staff css
 	10. Testimonail Css
-	11. Our gallery Css 
+	11. Our gallery Css
 	12. Our news Css
 	13. Fun Factor Css
     14. Team Brand And Newsletter Css
@@ -31,7 +31,7 @@
 		16.1 Home two Header Css
 	17. Home 2 services Css
 	18. Clinet say Testimonial
-	19. Home 2 gallery Css 
+	19. Home 2 gallery Css
 	20.  Getting Offer today
 	21. Footer 2 Css
 	22.1 Home3 Css here
@@ -86,7 +86,7 @@ img {
 }
 
 /*************************************
-         Custom-content all   
+         Custom-content all
  **************************************/
 .boxed-layout .wrapper {
     box-shadow: -3px 0 50px -2px rgba(0, 0, 0, 0.14);
@@ -138,14 +138,14 @@ img {
   margin-top: 65px;
   border-radius: 50% 50% 50% 50%;
 }
-.object_one {	
+.object_one {
   -webkit-animation: object_one 1.5s infinite;
   animation: object_one 1.5s infinite;
 }
 .object_two {
   -webkit-animation: object_two 1.5s infinite;
   animation: object_two 1.5s infinite;
-  -webkit-animation-delay: 0.25s; 
+  -webkit-animation-delay: 0.25s;
   animation-delay: 0.25s;
 }
 .object_three {
@@ -158,7 +158,7 @@ img {
 75% { -webkit-transform: scale(0); }
 }
 @keyframes object_one {
-  75% { 
+  75% {
     transform: scale(0);
     -webkit-transform: scale(0);
   }
@@ -167,7 +167,7 @@ img {
   75% { -webkit-transform: scale(0); }
 }
 @keyframes object_two {
-  75% { 
+  75% {
     transform: scale(0);
     -webkit-transform:  scale(0);
   }
@@ -176,7 +176,7 @@ img {
   75% { -webkit-transform: scale(0); }
 }
 @keyframes object_three {
-  75% { 
+  75% {
     transform: scale(0);
     -webkit-transform: scale(0);
   }
@@ -456,7 +456,7 @@ p.welcome-desc {
 }
 
 /*--------------
-  4. Searchbar Css 
+  4. Searchbar Css
 -------------*/
 .search-bar {
     display: none;
@@ -1410,10 +1410,11 @@ h3.news-title {
 }
 
 /* firefox 19+ */
-.newsletter-form input:-ms-input-placeholder color:#fff
+.newsletter-form input:-ms-input-placeholder {
+    color: #fff;
+}
 
-;
-} /* ie */
+/* ie */
 .newsletter-form input:-moz-placeholder {
     color: #fff;
 }
@@ -1579,11 +1580,11 @@ h3.news-title {
     width: 100%;
 }
 
-/* -------------------------- 
+/* --------------------------
   16. Home Two Css here
 ----------------------------*/
 
-/* -------------------------- 
+/* --------------------------
    16.1 Home two Header Css here
 ----------------------------*/
 .header-section.static2 {

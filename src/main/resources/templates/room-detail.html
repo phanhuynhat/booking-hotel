@@ -91,6 +91,8 @@
                                 <div class="item" th:classappend="${status.index == 0}? 'active'" th:each="image, status: ${room.roomType.roomTypeImages}">
                                     <img th:src="@{${image.path}}" style="width:100%;">
                                 </div>
+                                <a th:href="@{/room-booking(roomId=${param.roomId})}" class="btn btn-primary" id="btnBooking">đặt
+                                    ngay</a>
 
                             </div>
 
@@ -108,6 +110,9 @@
                     <div class="col-sm-6">
                         <h4>Loại Phòng: <span th:text="${room.roomType.typeName}"></span></h4>
                         <h4>Số Phòng: <span th:text="${room.roomNumber}"></span></h4>
+                        <h4>Người lớn: <span>3</span></h4>
+                        <h4>Trẻ em: <span>4</span></h4>
+
                         <h4>Mô tả : <span th:text="${room.roomType.description}"></span>
                         </h4>
                     </div>

@@ -19,7 +19,7 @@ public class Promotion {
     private String promotionCode;
     private  String promotionName;
     private String promotionType;
-    private String promotionValue;
+    private double promotionValue;
     private String description;
     private LocalDate startDate;
     private LocalDate endDate;

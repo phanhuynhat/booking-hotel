@@ -1,7 +1,8 @@
-package com.nhat.demo.service;
+package com.nhat.demo.service.serviceIml;
 
 import com.nhat.demo.entity.Room;
 import com.nhat.demo.repository.RoomRepository;
+import com.nhat.demo.service.RoomServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,19 @@ public class RoomServiceImpl implements RoomServiceIF {
     private RoomRepository roomRepository;
 
     @Override
-    public List<Room> getAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int alduts, int children) {
-        return roomRepository.findAvailableRoom(checkInDate, checkOutDate, alduts, children);
+    public List<Room> getAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int adults, int children) {
+        return roomRepository.findAvailableRoom(checkInDate, checkOutDate, adults, children);
     }
 
     @Override
     public Room getRoomById(int id) {
         return roomRepository.findById(id).orElse(null);
+    }
+
+
+    @Override
+    public void removeRoom(int roomId) {
+        roomRepository.deleteById(roomId);
     }
 
 }
