@@ -9,8 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -59,7 +57,7 @@ public class HomeController {
             model.addAttribute("availableRooms", availableRoom);
         }
 
-        return "available-room";
+        return "client/available-room";
 
     } //da in clude
 
@@ -68,60 +66,60 @@ public class HomeController {
     public String toRoomDetailPage(Model model,
                                    @RequestParam int roomId) {
         model.addAttribute("room", roomService.getRoomById(roomId));
-        return "room-detail";
+        return "client/room-detail";
     }
 
     @GetMapping("/about-us")
     public String toAboutUsPage(Model model) {
-        return "about-us";
+        return "client/about-us";
     }  //da include
 
     @GetMapping("/gallery")
     public String toGalleryPage(Model model) {
-        return "gallery";
+        return "client/gallery";
     }  //da include
 
     @GetMapping("/contact-us")
     public String toContactUsPage(Model model) {
-        return "contact-us";
+        return "client/contact-us";
     }
 
     @GetMapping("/personal-info")
     public String toPersonalInfoPage(Model model) {
-        return "personal-information";
+        return "client/personal-information";
     }
 
     @GetMapping("/booking-info")
     public String toBookingInfoPage(Model model) {
-        return "booking-information";
+        return "client/booking-information";
     }
 
     @GetMapping("/payment-info")
     public String toPaymentInfoPage(Model model) {
-        return "payment-information";
+        return "client/payment-information";
     }
 
 
     @GetMapping("/booking-done")
     public String toBookingDonePage(Model model) {
-        return "booking-done";
+        return "client/booking-done";
     }
 
 
     @GetMapping("/news")
     public String toNewsPage(Model model) {
-        return "news";
+        return "client/news";
     }  // da  include
 
     @GetMapping("/staff")
     public String toStaffPage(Model model) {
-        return "staff";
+        return "client/staff";
     }  //da inculude
 
 
     @GetMapping("/404")
     public String toPageNotFound(Model model) {
-        return "404";
+        return "client/404";
     } //da in clude
 
 

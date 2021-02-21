@@ -39,7 +39,7 @@ public class BookingCartController {
 
         //add vao cart
         bookingCart.addItem(bookingItem);
-        return "booking-information";
+        return "client/booking-information";
 
     }
 
@@ -49,7 +49,7 @@ public class BookingCartController {
         if (bookingCart.getBookingItems().size()== 0) {
             bookingCart.setPromotion(new Promotion());
         }
-        return "booking-information";
+        return "client/booking-information";
     }
 
     @GetMapping("/checkPromotion")
@@ -66,7 +66,7 @@ public class BookingCartController {
         }
 
 
-        return "booking-information";
+        return "client/booking-information";
     }
 
 }

@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragment::baseHeader(~{::title},~{},~{})">
+<head th:replace="client/fragment::baseHeader(~{::title},~{},~{})">
 	<title>Không tìm thấy trang</title>
 </head>
 
@@ -31,7 +31,7 @@
 	<!--Header section start-->
 	<div class="header-section about-us">
 		<div class="bg-opacity"></div>
-		<div th:insert="fragment::navbar"></div>
+		<div th:insert="client/fragment::navbar"></div>
 		<!-- ERROR AREA START -->
 		<div class="error-area text-center ptb-100">
 			<div class="container">
@@ -143,7 +143,7 @@
 	</div>
 	<!--hotel team end-->
 	<!--Footer start -->
-	<th:block th:include="fragment::footer-copyright"></th:block>
+	<th:block th:include="client/fragment::footer-copyright"></th:block>
 	<!-- Footer end -->
 </div>
 

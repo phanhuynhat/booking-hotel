@@ -18,7 +18,7 @@ public class BookingController {
     // xac nhan thong tin adults, children khi dat mot phong
     @GetMapping("/room-booking")
     public String toRoomBookingPages(Model model) {
-        return "room-booking";
+        return "client/room-booking";
     }
 
 

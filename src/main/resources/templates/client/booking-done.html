@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragment::baseHeader(~{::title},~{},~{})">
+<head th:replace="client/fragment::baseHeader(~{::title},~{},~{})">
 	<title>Hoàn tất đặt phòng</title>
 </head>
 
@@ -29,7 +29,7 @@
 	<!--Header section start-->
 	<div class="header-section booking_done">
 		<div class="bg-opacity"></div>
-		<div th:insert="fragment::navbar"></div>
+		<div th:insert="client/fragment::navbar"></div>
 		<!--Welcome secton-->
 		<div class="welcome-section text-center ptb-110">
 			<div class="container">
@@ -353,7 +353,7 @@
 	</div>
 	<!--hotel team end-->
 	<!--Footer start -->
-	<th:block th:include="fragment::footer-copyright"></th:block>
+	<th:block th:include="client/fragment::footer-copyright"></th:block>
 	<!-- Footer end -->
 </div>
 
