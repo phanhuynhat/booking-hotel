@@ -167,7 +167,7 @@
                                                 </h3>
                                                 <div class="prve-next-box mt-20">
                                                     <div class="back-link">
-                                                        <a id=href="#">Back</a>
+                                                        <a href="#">Back</a>
                                                     </div>
                                                     <button type="button" id="nextToPersonal">Next</button>
                                                 </div>
@@ -208,42 +208,40 @@
                                     <div role="tabpanel" class="tab-pane" id="personal">
                                         <div class="personal-info-details">
                                             <div class="booking-info-inner">
-                                                <form action="#">
+                                                <form action="#" id="personalForm">
                                                     <div class="booking-form-list">
                                                         <div class="single-form-part">
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="First Name">
+                                                                <input type="text" placeholder="HỌ" name="lastName">
                                                             </div>
                                                             <div class="select-option">
-                                                                <select>
-                                                                    <option value="MALE" selected>Nam</option>
+                                                                <select name="gender" >
+                                                                    <option value="" selected>Giới tính</option>
+                                                                    <option value="MALE" >Nam</option>
                                                                     <option value="FEMALE">Nữ</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="single-form-part">
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="Last Name">
+                                                                <input type="text" placeholder="Tên" name="firstName">
                                                             </div>
                                                             <!--													for phone-->
                                                             <div class="name mb-15">
-                                                                <input type="tel" placeholder="your phone">
+                                                                <input type="text" placeholder="Số điện thoại" name="phone">
                                                             </div>
 
                                                         </div>
                                                         <div class="single-form-part">
                                                             <div class="mail mb-15">
-                                                                <input type="text" placeholder="Your Email" value="Your Email">
+                                                                <input type="text" placeholder="Your Email" name="email">
                                                             </div>
                                                             <!--for email -->
                                                             <div class="name mb-15">
-                                                                <input type="indentify" placeholder="CMND">
+                                                                <input type="text" name="indentifyNo" placeholder="CMND">
                                                             </div>
 
                                                         </div>
-                                                    </div>
-                                                    <div class="request-box mt-15">
-                                                        <textarea name="description" placeholder="Any Specific Request"></textarea>
                                                     </div>
                                                     <div class="prve-next-box mt-20">
                                                         <div id="backToBookingInfo" class="back-link">
@@ -261,16 +259,16 @@
                                                 <div class="payment-form">
                                                     <div class="payment-form-list">
                                                         <div class="single_form">
-                                                            <input type="text" name="ownerName" placeholder="Tên Chủ thẻ">
+                                                            <input type="text" name="ownerName" placeholder="Tên Chủ thẻ" required>
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="text" name="cardNumber" placeholder="Số tài khoản">
+                                                            <input type="text" name="cardNumber" placeholder="Số tài khoản" required>
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="number" name="expiryMonth" placeholder="Tháng hết hạn">
+                                                            <input type="number" name="expiryMonth" placeholder="Tháng hết hạn" required>
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="number" name="expiryYear" placeholder="Năm hết hạn">
+                                                            <input type="number" name="expiryYear" placeholder="Năm hết hạn" required>
                                                         </div>
                                                         <div class="pay-money-form mt-40">
                                                             <div class="payment-card">
@@ -280,38 +278,64 @@
                                                                 <button type="submit">Pay now</button>
                                                             </div>
                                                         </div>
+                                                        <p id="credit-cart-error"></p>
                                                     </div>
+                                                </div>
                                             </form>
+
+                                        </div>
+                                        <div class="booking-done-table table-responsive text-center">
+                                            <table class="table">
+
+
+                                                <thead>
+                                                    <tr>
+                                                        <th>Số Phòng</th>
+                                                        <th>Số Đêm</th>
+                                                        <th>Giảm Giá</th>
+                                                        <th>Thanh Toán</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:with="checkInDate=${@bookingCart.checkInDate},checkOutDate=${@bookingCart.checkOutDate}">
+                                                        <th th:text="${@bookingCart.bookingItems.size()}"></th>
+                                                        <th th:text="${@bookingCart.bookingItems.values()[0].countNight(checkInDate, checkOutDate)}"></th>
+                                                        <th th:text="${#numbers.formatCurrency(@bookingCart.promotion.promotionValue)}"></th>
+                                                        <th th:text="${#numbers.formatCurrency(@bookingCart.calculateTotal())}"></th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="done">
                                         <div class="booking-done">
                                             <div class="booking-done-table table-responsive text-center">
                                                 <table class="table">
-                                                    <tr>
-                                                        <td><p>1 Room <span>Five Adult & 1 child</span></p></td>
-                                                        <td><p>$120 <span>Rate</span></p></td>
-                                                        <td><p>5 <span>night</span></p></td>
-                                                        <td><p>$550</p></td>
-                                                    </tr>
-                                                    <tr class="row2">
-                                                        <td><p>tax <span>20% tax</span></p></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><p>$90</p></td>
-                                                    </tr>
-                                                    <tr class="row3">
-                                                        <td><p>Total</p></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td><p>$640</p></td>
-                                                    </tr>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><p>1 Room <span>Five Adult &amp; 1 child</span></p></td>
+                                                            <td><p>$120 <span>Rate</span></p></td>
+                                                            <td><p>5 <span>night</span></p></td>
+                                                            <td><p>$550</p></td>
+                                                        </tr>
+                                                        <tr class="row2">
+                                                            <td><p>tax <span>20% tax</span></p></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><p>$90</p></td>
+                                                        </tr>
+                                                        <tr class="row3">
+                                                            <td><p>Total</p></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td><p>$640</p></td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                             <div class="booking-done-description">
                                                 <p>There are many variations of passages of Lorem Ipsum available, but
-                                                    the
-                                                    majority have suffered alteration in some form, by injected
+                                                    the majority have suffered alteration in some form, by injected
                                                     humour</p>
                                                 <div class="succesfully">
                                                     <strong>Your reservation was succefully submited!!</strong>
@@ -319,6 +343,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -423,14 +448,23 @@
 
             $("#payForm").submit(function (event) {
                 event.preventDefault();
-
+                var queryString = $(this).serialize() + '&' +$('#personalForm').serialize();
                 $.ajax(
                     {
                         url: '/check-credit-cart',
                         type: "POST",
-                        data: $(this).serialize(),
+                        data: queryString,
                         success: function (result) {
                             console.log(result);
+                            // XU LY LOGIC O DAY
+                            if (result == "not match") {
+                                $('#credit-cart-error').html("Thông tin thẻ không chính xác");
+                            } else if (result == "not enough") {
+                                $('#credit-cart-error').html("Thẻ hiện không có đủ tiền");
+                            } else if (result = "ok") {
+
+
+                            }
                         }
 
 
@@ -440,6 +474,7 @@
 
 
         </script>
+
     </body>
 
 </html>

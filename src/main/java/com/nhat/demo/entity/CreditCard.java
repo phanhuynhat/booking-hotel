@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class CreditCard {
     private String expiryYear;
     private double balance;
     @OneToMany(mappedBy = "creditCard")
-    private List<Transaction> transaction;
+    private List<Transaction> transaction = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

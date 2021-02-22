@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -32,33 +33,35 @@ public class Booking {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
-    @Enumerated(EnumType.STRING)
-    private BookingStatus bookingStatus;
 
     private double bookingPrice;
-
-    private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promotion_id", nullable = true, unique = false)
     private Promotion promotion;
 
-    @OneToMany(mappedBy = "booking")
-    private List<BookingDetail> bookingDetails;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<BookingDetail> bookingDetails = new ArrayList<>();
 
     @OneToMany(mappedBy = "booking")
-    private List<Charge> charges;
+    private List<Charge> charges = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "invoice_id", nullable = true, unique = true)
     private Invoice invoice;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_person_id")
     private BookingPerson bookingPerson;
 
     @OneToMany(mappedBy = "booking")
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
+
+
+    @PrePersist
+    public void initbookingDate() {
+        this.bookingDate = LocalDateTime.now();
+    }
 
 
 }

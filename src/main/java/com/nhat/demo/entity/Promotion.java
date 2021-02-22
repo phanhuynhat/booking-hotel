@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -25,6 +26,6 @@ public class Promotion {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "promotion")
-    private List<Booking> bookings;
+    private List<Booking> bookings = new ArrayList<>();
 
 }

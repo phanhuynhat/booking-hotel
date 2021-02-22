@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -20,7 +21,7 @@ public class Service {
     private double unitPrice;
     private String unit;
     @OneToMany(mappedBy = "service")
-    private List<Charge> charges;
+    private List<Charge> charges = new ArrayList<>();
 
 
 }

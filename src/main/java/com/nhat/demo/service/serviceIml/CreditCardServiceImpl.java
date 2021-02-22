@@ -17,11 +17,11 @@ public class CreditCardServiceImpl implements CreditCardServiceIF {
     @Override
     public String ValidateCart(CreditCard creditCard) {
         CreditCard crdCard = creditCardRepository.findByCardNumber(creditCard.getCardNumber());
-        // neu 4 thong tin gui len Khong khop
-        if (!crdCard.equals(creditCard)) {
+        // neu thông tin gửi lên không khớp
+        if (crdCard == null||!crdCard.equals(creditCard)) {
             return "not match";
         }
-       //neu 4 thong tin gui len khop
+       //Nếu thông tin gửi lên khớp
         //kiem tra tiep tai khoan con du tien khong?
 
         double total = bookingCart.calculateTotal();
@@ -29,8 +29,19 @@ public class CreditCardServiceImpl implements CreditCardServiceIF {
             return "not enough";
         }
 
-        return "ok";
+        // tru tien trong trong tai khoan
+        subtractingMoney(crdCard, total);
 
+
+        return "ok";
+    }
+
+
+
+    @Override
+    public void subtractingMoney(CreditCard creditCard, double total) {
+        creditCard.setBalance(creditCard.getBalance() - total);
+        creditCardRepository.save(creditCard);
     }
 
 }

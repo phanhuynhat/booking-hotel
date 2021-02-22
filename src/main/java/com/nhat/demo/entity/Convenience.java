@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,5 +18,5 @@ public class Convenience {
     private int convenienceId;
     private String convenienceName;
     @ManyToMany(mappedBy = "conveniences")
-    private List<RoomType> roomTypes;
+    private List<RoomType> roomTypes = new ArrayList<>();
 }
