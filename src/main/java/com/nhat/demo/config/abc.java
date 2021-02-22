@@ -1,7 +1,7 @@
 package com.nhat.demo.config;
 
 public class abc {
-    private int id;
+    private int idVuong;
     private String name;
     private int age;
 }
