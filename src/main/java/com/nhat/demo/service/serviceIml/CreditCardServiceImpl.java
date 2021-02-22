@@ -17,16 +17,11 @@ public class CreditCardServiceImpl implements CreditCardServiceIF {
     @Override
     public String ValidateCart(CreditCard creditCard) {
         CreditCard crdCard = creditCardRepository.findByCardNumber(creditCard.getCardNumber());
-        //Nếu sai sai so tai khoan
-        if (crdCard == null) {
-            return "not found";
-        }
-
-        // neu dung so tai khoan kiểm tra tiếp 3 thông tin còn lại
+        // neu 4 thong tin gui len Khong khop
         if (!crdCard.equals(creditCard)) {
             return "not match";
         }
-        // neu dung so tk, dung 3 thong tin con lai
+       //neu 4 thong tin gui len khop
         //kiem tra tiep tai khoan con du tien khong?
 
         double total = bookingCart.calculateTotal();

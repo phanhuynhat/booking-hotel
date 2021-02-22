@@ -246,7 +246,7 @@
                                                         <textarea name="description" placeholder="Any Specific Request"></textarea>
                                                     </div>
                                                     <div class="prve-next-box mt-20">
-                                                        <div id = "backToBookingInfo" class="back-link">
+                                                        <div id="backToBookingInfo" class="back-link">
                                                             <a href="#">back</a>
                                                         </div>
                                                         <button id="NextToPayment" type="submit">Next</button>
@@ -257,56 +257,30 @@
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="payment">
                                         <div class="payment-info">
-                                            <form action="#">
+                                            <form action="#" id="payForm" method="POST">
                                                 <div class="payment-form">
                                                     <div class="payment-form-list">
                                                         <div class="single_form">
-                                                            <input type="text" placeholder="Card Holder Name">
+                                                            <input type="text" name="ownerName" placeholder="Tên Chủ thẻ">
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="text" placeholder="Enter Creadit Card Number">
+                                                            <input type="text" name="cardNumber" placeholder="Số tài khoản">
                                                         </div>
                                                         <div class="single_form">
-                                                            <div class="select-date">
-                                                                <select>
-                                                                    <option value="1" selected>Enter Month</option>
-                                                                    <option value="1">January</option>
-                                                                    <option value="1">February</option>
-                                                                    <option value="1">March</option>
-                                                                    <option value="1">April</option>
-                                                                    <option value="1">May</option>
-                                                                    <option value="1">June</option>
-                                                                    <option value="1">July</option>
-                                                                    <option value="1">August</option>
-                                                                    <option value="1">September</option>
-                                                                    <option value="1">October</option>
-                                                                    <option value="1">NOvember</option>
-                                                                    <option value="1">December</option>
-                                                                </select>
+                                                            <input type="number" name="expiryMonth" placeholder="Tháng hết hạn">
+                                                        </div>
+                                                        <div class="single_form">
+                                                            <input type="number" name="expiryYear" placeholder="Năm hết hạn">
+                                                        </div>
+                                                        <div class="pay-money-form mt-40">
+                                                            <div class="payment-card">
+                                                                <a href="#"><img src="/images/logo/pay-card.png" alt=""></a>
                                                             </div>
-                                                        </div>
-                                                        <div class="single_form">
-                                                            <div class="select-date">
-                                                                <select>
-                                                                    <option value="1" selected>Enter Year</option>
-                                                                    <option value="1">2017</option>
-                                                                    <option value="1">2018</option>
-                                                                    <option value="1">2019</option>
-                                                                    <option value="1">2020</option>
-                                                                    <option value="1">2021</option>
-                                                                </select>
+                                                            <div class="pay-order">
+                                                                <button type="submit">Pay now</button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="pay-money-form mt-40">
-                                                        <div class="payment-card">
-                                                            <a href="#"><img src="/images/logo/pay-card.png" alt=""></a>
-                                                        </div>
-                                                        <div class="pay-order">
-                                                            <button type="submit">Pay now</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -442,12 +416,27 @@
                 $("#bookingInfoTab").click();
             });
 
-    $("#NextToPayment").click(function (event) {
+            $("#NextToPayment").click(function (event) {
                 event.preventDefault();
                 $("#paymentTab").click();
             });
 
+            $("#payForm").submit(function (event) {
+                event.preventDefault();
 
+                $.ajax(
+                    {
+                        url: '/check-credit-cart',
+                        type: "POST",
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            console.log(result);
+                        }
+
+
+                    }
+                )
+            });
 
 
         </script>
