@@ -100,7 +100,7 @@
                                     </li>
                                     <li><a id="paymentTab" href="#payment" data-toggle="tab"><span
                                             class="tab-border">3</span><span>payment Info</span></a></li>
-                                    <li><a href="#done" data-toggle="tab"><span
+                                    <li><a ID="doneTab" href="#done" data-toggle="tab"><span
                                             class="tab-border">4</span><span>Booking Done</span></a></li>
                                 </ul>
                             </div>
@@ -166,16 +166,13 @@
                                                     <span th:text="${#numbers.formatCurrency(@bookingCart.calculateTotal())}"></span>
                                                 </h3>
                                                 <div class="prve-next-box mt-20">
-                                                    <div class="back-link">
-                                                        <a href="#">Back</a>
-                                                    </div>
                                                     <button type="button" id="nextToPersonal">Next</button>
                                                 </div>
 
                                             </div>
                                             <div class="single-room-booking-form mt-60">
                                                 <div class="booking_form_inner">
-                                                    <form th:action="@{/search-available-room}" method="GET">
+                                                    <form th:action="@{/search-available-room}" method="POST">
                                                         <div class="single-form-part">
                                                             <!--ngày đến-->
                                                             <div class="date-to mb-20">
@@ -212,41 +209,39 @@
                                                     <div class="booking-form-list">
                                                         <div class="single-form-part">
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="HỌ" name="lastName">
+                                                                <input type="text" placeholder="Họ" name="lastName" tabindex="1" required>
                                                             </div>
-                                                            <div class="select-option">
-                                                                <select name="gender" >
+                                                            <div class="select-option" tabindex="4" required>
+                                                                <select name="gender">
                                                                     <option value="" selected>Giới tính</option>
-                                                                    <option value="MALE" >Nam</option>
+                                                                    <option value="MALE">Nam</option>
                                                                     <option value="FEMALE">Nữ</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="single-form-part">
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="Tên" name="firstName">
+                                                                <input type="text" placeholder="Tên" name="firstName" tabindex="2" required>
                                                             </div>
                                                             <!--													for phone-->
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="Số điện thoại" name="phone">
+                                                                <input type="text" placeholder="Số điện thoại" name="phone" tabindex="5" required>
                                                             </div>
 
                                                         </div>
                                                         <div class="single-form-part">
                                                             <div class="mail mb-15">
-                                                                <input type="text" placeholder="Your Email" name="email">
+                                                                <input type="text" placeholder="Your Email" name="email" tabindex="3" required>
                                                             </div>
                                                             <!--for email -->
                                                             <div class="name mb-15">
-                                                                <input type="text" name="indentifyNo" placeholder="CMND">
+                                                                <input type="text" name="indentifyNo" placeholder="CMND" tabindex="6" required>
                                                             </div>
 
                                                         </div>
                                                     </div>
                                                     <div class="prve-next-box mt-20">
-                                                        <div id="backToBookingInfo" class="back-link">
-                                                            <a href="#">back</a>
-                                                        </div>
+
                                                         <button id="NextToPayment" type="submit">Next</button>
                                                     </div>
                                                 </form>
@@ -334,9 +329,7 @@
                                                 </table>
                                             </div>
                                             <div class="booking-done-description">
-                                                <p>There are many variations of passages of Lorem Ipsum available, but
-                                                    the majority have suffered alteration in some form, by injected
-                                                    humour</p>
+                                                <p id="bookingCode"></p>
                                                 <div class="succesfully">
                                                     <strong>Your reservation was succefully submited!!</strong>
                                                 </div>
@@ -425,6 +418,13 @@
 
 
         <script>
+            // vo hieu hoa click tren moi tab
+            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
+                event.preventDefault()
+                event.stopPropagation();
+            });
+
+
             if ($("#promotion").length || !$(".single-room-details.fix").length) {
                 // neu co ton tai phan tu h4#promotion (hien thi promotion value)
                 // vo hieu hoa form (checkpromtion)
@@ -433,22 +433,29 @@
             }
 
             $("#nextToPersonal").click(function () {
+                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
                 $("#personalTab").click();
+                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
+                    event.preventDefault()
+                    event.stopPropagation();
+                });
+
             });
 
-            $("#backToBookingInfo").click(function (event) {
-                event.preventDefault();
-                $("#bookingInfoTab").click();
-            });
 
-            $("#NextToPayment").click(function (event) {
+            $("#personalForm").submit(function (event) {
+                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
                 event.preventDefault();
                 $("#paymentTab").click();
+                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
+                    event.preventDefault()
+                    event.stopPropagation();
+                });
             });
 
             $("#payForm").submit(function (event) {
                 event.preventDefault();
-                var queryString = $(this).serialize() + '&' +$('#personalForm').serialize();
+                var queryString = $(this).serialize() + '&' + $('#personalForm').serialize();
                 $.ajax(
                     {
                         url: '/check-credit-cart',
@@ -459,12 +466,22 @@
                             // XU LY LOGIC O DAY
                             if (result == "not match") {
                                 $('#credit-cart-error').html("Thông tin thẻ không chính xác");
+                                return;
                             } else if (result == "not enough") {
                                 $('#credit-cart-error').html("Thẻ hiện không có đủ tiền");
-                            } else if (result = "ok") {
-
-
+                                return;
                             }
+
+
+                            // neu thanh cong thi sẽ cap nhat lai noi dung cua tab booking done.
+
+                            $('#bookingCode').html('Mã đặt phòng của bạn là: ' + result.);
+                            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
+                            $('#doneTab').click();
+                            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
+                                event.preventDefault()
+                                event.stopPropagation();
+                            });
                         }
 
 
@@ -474,6 +491,7 @@
 
 
         </script>
+
 
     </body>
 

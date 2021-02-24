@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
@@ -33,7 +34,7 @@ public class HomeController {
 
     }
 
-    @GetMapping("/search-available-room")
+    @PostMapping("/search-available-room")
     public String toOutRoomPage(Model model,
                                 @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate checkInDate,
                                 @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate checkOutDate,
@@ -100,10 +101,6 @@ public class HomeController {
     }
 
 
-    @GetMapping("/booking-done")
-    public String toBookingDonePage(Model model) {
-        return "client/booking-done";
-    }
 
 
     @GetMapping("/news")

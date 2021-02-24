@@ -4,4 +4,6 @@ import com.nhat.demo.entity.Booking;
 
 public interface BookingServiceIF {
     void saveBooking(Booking booking);
+
+    String createBookingCode();
 }

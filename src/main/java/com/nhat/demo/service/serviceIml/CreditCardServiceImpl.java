@@ -16,32 +16,37 @@ public class CreditCardServiceImpl implements CreditCardServiceIF {
 
     @Override
     public String ValidateCart(CreditCard creditCard) {
+
         CreditCard crdCard = creditCardRepository.findByCardNumber(creditCard.getCardNumber());
         // neu thông tin gửi lên không khớp
-        if (crdCard == null||!crdCard.equals(creditCard)) {
+        if (crdCard == null || !crdCard.equals(creditCard)) {
             return "not match";
         }
-       //Nếu thông tin gửi lên khớp
+        //Nếu thông tin gửi lên khớp
         //kiem tra tiep tai khoan con du tien khong?
 
         double total = bookingCart.calculateTotal();
         if (crdCard.getBalance() < total) {
             return "not enough";
         }
-
-        // tru tien trong trong tai khoan
-        subtractingMoney(crdCard, total);
-
-
         return "ok";
     }
 
-
-
     @Override
-    public void subtractingMoney(CreditCard creditCard, double total) {
-        creditCard.setBalance(creditCard.getBalance() - total);
-        creditCardRepository.save(creditCard);
+    public void tranferMoney(String fromCard, String toCard, double amount) {
+        CreditCard fromCrCard = creditCardRepository.findByCardNumber(fromCard);
+        CreditCard toCrCard = creditCardRepository.findByCardNumber(toCard);
+
+        fromCrCard.setBalance(fromCrCard.getBalance() - amount);
+
+        toCrCard.setBalance(toCrCard.getBalance() + amount);
+
+        creditCardRepository.save(fromCrCard);
+        creditCardRepository.save(toCrCard);
+
     }
+
+
+
 
 }
