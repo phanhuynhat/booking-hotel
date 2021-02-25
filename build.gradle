@@ -24,7 +24,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.4'
 
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.2.6.RELEASE'
 }
 
 test {

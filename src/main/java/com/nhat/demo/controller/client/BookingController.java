@@ -7,21 +7,18 @@ import com.nhat.demo.entity.BookingPerson;
 import com.nhat.demo.entity.CreditCard;
 import com.nhat.demo.model.BookingCart;
 import com.nhat.demo.model.BookingDTO;
-import com.nhat.demo.model.BookingDetailDTO;
 import com.nhat.demo.model.BookingItem;
 import com.nhat.demo.repository.BookingDetailRepository;
 import com.nhat.demo.service.BookingServiceIF;
 import com.nhat.demo.service.CreditCardServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -34,6 +31,9 @@ public class BookingController {
     private BookingCart bookingCart;
 
     @Autowired
+    JavaMailSender javaMailSender;
+
+    @Autowired
     private BookingDetailRepository bookingDetailRepository;
 
     // xac nhan thong tin adults, children khi dat mot phong
@@ -43,9 +43,12 @@ public class BookingController {
     }
 
 
-    @PostMapping("/booking-done")
-    public String toBookingDonePage(@RequestParam String bookingCode, Model model) {
-        model.addAttribute("bookingCode", bookingCode);
+    @GetMapping("/booking-done/{bookingCode}")
+    public String toBookingDonePage(@PathVariable String bookingCode, Model model) {
+        model.addAttribute("booking", bookingService.getBookingByBookingCode(bookingCode));
+
+
+
         return "client/booking-done";
 
     }
@@ -86,7 +89,7 @@ public class BookingController {
         //tao mot booking object
         Booking booking = new Booking();
         booking.setBookingCode(bookingCode);
-        booking.setBookingPrice(bookingCart.calculateTotal());
+        // KHÔNG LƯU TRỮ BOOKING PRICE
         booking.setCheckInDate(bookingCart.getCheckInDate());
         booking.setCheckOutDate(bookingCart.getCheckOutDate());
         // set mot promotion o bang promotion nếu có promotion
@@ -128,10 +131,19 @@ public class BookingController {
         //vi da dung cascade = all
         bookingService.saveBooking(booking);
 
-        List<BookingDetailDTO> bookingDetailDTO = bookingDetailRepository.getBookingDetailDTO(booking.getBookingCode());
-//        return booking.getBookingCode();
 
-        return  bookingDetailDTO;
+        // gửi email
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("ducvuong25@gmail.com");
+        message.setTo("k4ltleducvuong@tckt.edu.vn");
+
+        message.setSubject("simple mail send by spring boot");
+        message.setText("this is defautl content!");
+        javaMailSender.send(message);
+
+        return booking.getBookingCode();
+
 
 
     }

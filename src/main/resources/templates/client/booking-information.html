@@ -150,7 +150,7 @@
                                             <!--  ket thuc vong lap-->
                                             <div style="clear: both">
                                                 <div>
-                                                    <form id="promotionForm" action="/cart/checkPromotion" method="GET">
+                                                    <form id="promotionForm" action="/cart/checkPromotion" method="POST">
                                                         <input type="text" placeholder="nhập mã giảm giá nếu có" name="promotionCode">
                                                         <input type="submit" value="Kiểm tra">
                                                     </form>
@@ -231,7 +231,7 @@
                                                         </div>
                                                         <div class="single-form-part">
                                                             <div class="mail mb-15">
-                                                                <input type="text" placeholder="Your Email" name="email" tabindex="3" required>
+                                                                <input type="email" placeholder="Your Email" name="email" tabindex="3" required>
                                                             </div>
                                                             <!--for email -->
                                                             <div class="name mb-15">
@@ -473,15 +473,16 @@
                             }
 
 
-                            // neu thanh cong thi sẽ cap nhat lai noi dung cua tab booking done.
+                            // neu thanh cong thi redirect den /booking-done/<bookingDone>
+                            window.location.replace('/booking-done/' + result)
 
-                            $('#bookingCode').html('Mã đặt phòng của bạn là: ' + result.);
-                            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
-                            $('#doneTab').click();
-                            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
-                                event.preventDefault()
-                                event.stopPropagation();
-                            });
+                            // $('#bookingCode').html('Mã đặt phòng của bạn là: ' + result.);
+                            // $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
+                            // $('#doneTab').click();
+                            // $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
+                            //     event.preventDefault()
+                            //     event.stopPropagation();
+                            // });
                         }
 
 

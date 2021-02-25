@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.temporal.ChronoUnit;
 
 @Setter
 @Getter
@@ -22,5 +23,20 @@ public class BookingDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", unique = false, nullable = false)
     private Room room;
+
+    @Transient
+    private int night;
+
+    @Transient
+    private double subTotal;
+
+    @PostLoad
+    public void postLoad() {
+        this.night = (int) ChronoUnit.DAYS.between(booking.getCheckInDate(), booking.getCheckOutDate());
+        this.subTotal = night * room.getRoomType().getUnitPrice();
+    }
+
+
+
 
 }

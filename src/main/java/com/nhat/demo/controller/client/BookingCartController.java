@@ -52,7 +52,7 @@ public class BookingCartController {
         return "client/booking-information";
     }
 
-    @GetMapping("/checkPromotion")
+    @PostMapping("/checkPromotion")
     public String checkPromotion(@RequestParam String promotionCode, Model model) {
         //kiem tra xem co duoi dababase khong
         Promotion promotion = promotionService.getPromotionById(promotionCode);

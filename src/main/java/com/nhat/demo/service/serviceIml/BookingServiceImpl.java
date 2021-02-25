@@ -8,6 +8,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookingServiceImpl implements BookingServiceIF {
     @Autowired
@@ -15,6 +17,21 @@ public class BookingServiceImpl implements BookingServiceIF {
 
     @Autowired
     CreditCardRepository creditCardRepository;
+
+    @Override
+    public List<Booking> getAllBooking() {
+        return bookingRepository.findAll();
+    }
+
+    @Override
+    public Booking getBookingById(int bookingId) {
+        return bookingRepository.findById(bookingId).orElse(null);
+    }
+
+    @Override
+    public Booking getBookingByBookingCode(String bookingCode) {
+        return bookingRepository.findByBookingCode(bookingCode);
+    }
 
     @Override
     public void saveBooking(Booking booking) {

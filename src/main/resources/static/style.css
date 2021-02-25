@@ -2786,14 +2786,13 @@ h3.news-title {
 
 .booking-done-table {
     float: left;
-    padding-right: 30px;
-    width: 50%;
+    width: 60%;
 }
 
 .booking-done-description {
     float: left;
     padding-left: 30px;
-    width: 50%;
+    width:40%;
 }
 
 .booking-done-table table {

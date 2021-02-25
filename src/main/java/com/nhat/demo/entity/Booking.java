@@ -33,9 +33,6 @@ public class Booking {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOutDate;
 
-
-    private double bookingPrice;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "promotion_id", nullable = true, unique = false)
     private Promotion promotion;
@@ -58,9 +55,25 @@ public class Booking {
     private List<Transaction> transactions = new ArrayList<>();
 
 
+    @Transient
+    private double sumOfSubTotal;
+
+    @Transient
+    private double total;
+
     @PrePersist
     public void initbookingDate() {
         this.bookingDate = LocalDateTime.now();
+    }
+
+    @PostLoad
+    public void postLoad() {
+        this.sumOfSubTotal = bookingDetails.stream().mapToDouble(BookingDetail::getSubTotal).sum();
+        if (promotion != null) {
+            this.total = sumOfSubTotal - promotion.getPromotionValue();
+        } else {
+            this.total = sumOfSubTotal;
+        }
     }
 
 
