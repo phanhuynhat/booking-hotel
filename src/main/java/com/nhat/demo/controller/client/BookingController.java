@@ -11,13 +11,16 @@ import com.nhat.demo.model.BookingItem;
 import com.nhat.demo.repository.BookingDetailRepository;
 import com.nhat.demo.service.BookingServiceIF;
 import com.nhat.demo.service.CreditCardServiceIF;
+import com.nhat.demo.service.serviceIml.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.util.Map;
 
@@ -31,10 +34,14 @@ public class BookingController {
     private BookingCart bookingCart;
 
     @Autowired
-    JavaMailSender javaMailSender;
+    private EmailService emailService;
+
 
     @Autowired
     private BookingDetailRepository bookingDetailRepository;
+
+
+
 
     // xac nhan thong tin adults, children khi dat mot phong
     @GetMapping("/room-booking")
@@ -48,17 +55,16 @@ public class BookingController {
         model.addAttribute("booking", bookingService.getBookingByBookingCode(bookingCode));
 
 
-
         return "client/booking-done";
 
     }
 
 
     // khi ấn thanh toán
-    @PostMapping("/check-credit-cart")
+    @PostMapping("/booking-process")
     @Transactional(rollbackOn = Exception.class)
     @ResponseBody
-    public Object checkCreditCart(BookingDTO bookingDTO) {
+    public Object checkCreditCart(BookingDTO bookingDTO) throws MessagingException {
         //tao CreditCard tu BookingDTO
         CreditCard creditCard = new CreditCard();
         creditCard.setOwnerName(bookingDTO.getOwnerName());
@@ -134,17 +140,10 @@ public class BookingController {
 
         // gửi email
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("ducvuong25@gmail.com");
-        message.setTo("k4ltleducvuong@tckt.edu.vn");
-
-        message.setSubject("simple mail send by spring boot");
-        message.setText("this is defautl content!");
-        javaMailSender.send(message);
-
-        return booking.getBookingCode();
+        emailService.sendMail(bookingPerson, bookingCode);
 
 
+        return bookingCode;
 
     }
 

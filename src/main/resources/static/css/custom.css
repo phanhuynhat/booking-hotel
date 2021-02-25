@@ -24,7 +24,7 @@
     position: relative;
 }
 
-#myCarousel a#btnBooking{
+#myCarousel a#btnBooking {
     position: absolute;
     top: 46%;
     left: 42%;
@@ -38,7 +38,7 @@
     position: relative;
 }
 
-.single-room-details.fix a.btn{
+.single-room-details.fix a.btn {
     position: absolute;
     top: 50%;
     left: 70%;
@@ -48,4 +48,13 @@
 #message {
     color: red;
 }
+
+
+#credit-cart-error {
+    font-size: 2em;
+    color: red;
+}
+
+
+
 

@@ -273,7 +273,7 @@
                                                                 <button type="submit">Pay now</button>
                                                             </div>
                                                         </div>
-                                                        <p id="credit-cart-error"></p>
+                                                        <div id="credit-cart-error"></div>
                                                     </div>
                                                 </div>
                                             </form>
@@ -455,10 +455,11 @@
 
             $("#payForm").submit(function (event) {
                 event.preventDefault();
+                $('#credit-cart-error').html('<img src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif"> loading...');
                 var queryString = $(this).serialize() + '&' + $('#personalForm').serialize();
                 $.ajax(
                     {
-                        url: '/check-credit-cart',
+                        url: '/booking-process',
                         type: "POST",
                         data: queryString,
                         success: function (result) {
