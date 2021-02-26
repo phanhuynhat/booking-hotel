@@ -18,4 +18,38 @@ public class AdminController {
     public String addNewRoom() {
         return "/manage/addNewRoom";
     }
+
+    @PostMapping("saveNewRoomType")
+    public String saveRoomType(@ModelAttribute RoomType roomType, @RequestParam MultipartFile[] files){
+
+        roomTypeRepository.save(roomType);
+
+        StringBuffer fileNames = new StringBuffer();
+
+        for (MultipartFile file : files) {
+            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+
+            fileNames.append(file.getOriginalFilename());
+
+
+            try {
+                Files.write(fileNameAndPath,file.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+//            ImageEntity imageEntity = new ImageEntity();
+//            imageEntity.setName(file.getOriginalFilename());
+//            imageRepository.save(imageEntity);
+        }
+
+        return "/manage/addNewRoomType";
+    }
+
+    @GetMapping("viewAllRoom")
+    public String viewAllRoom(Model model) {
+
+        return "/manage/viewAllRoom";
+    }
 }
