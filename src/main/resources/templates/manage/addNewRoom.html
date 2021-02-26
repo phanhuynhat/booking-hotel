@@ -52,39 +52,33 @@
                 <div class="col-md-10">
                     <div class="content-box-large">
                         <div class="panel-body">
-                            <form class="form-horizontal" action="">
+                            <form class="form-horizontal" th:action="@{saveRoom}" th:object="${room}" method="post">
 
                                     <legend>THÊM MỚI PHÒNG</legend>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" >Tên của phòng</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" placeholder="Default Text Field" type="text">
+                                            <input class="form-control" placeholder="Tên của phòng" type="text" th:field="*{roomNumber}">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 control-label" >Tầng</label>
                                         <div class="col-md-10">
-                                            <input class="form-control" placeholder="Default Text Field" type="text">
+                                            <input class="form-control" placeholder="Tầng" type="text" th:field="*{floor}">
                                         </div>
                                     </div>
 
                                         <div class="form-group">
                                             <label class="control-label col-md-2">Loại phòng</label>
                                             <div class="col-md-5">
-                                                <select class="form-control">
-                                                    <option>Amsterdam</option>
-                                                    <option>Minneapolis</option>
+                                                <select class="form-control" th:field="*{roomType.roomTypeId}">
+                                                    <option th:each="roomType : ${roomTypeList}"
+                                                            th:text="${roomType.typeName}"
+                                                            th:value="${roomType.roomTypeId}">
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
-
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Thêm hình ảnh</label>
-                                        <div class="col-md-10">
-                                            <input type="file" class="btn btn-default" id="exampleInputFile1" required>
-                                        </div>
-                                    </div>
-
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-12">
