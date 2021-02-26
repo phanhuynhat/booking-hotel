@@ -90,10 +90,7 @@ public class HomeController {
         return "client/personal-information";
     }
 
-    @GetMapping("/booking-info")
-    public String toBookingInfoPage(Model model) {
-        return "client/booking-information";
-    }
+
 
     @GetMapping("/payment-info")
     public String toPaymentInfoPage(Model model) {

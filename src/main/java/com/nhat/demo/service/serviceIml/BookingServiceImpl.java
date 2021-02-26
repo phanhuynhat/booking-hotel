@@ -56,4 +56,9 @@ public class BookingServiceImpl implements BookingServiceIF {
         while (duplicate);
         return bookingCode;
     }
+
+    @Override
+    public void removeBookingByPromotionCode(String bookingCode) {
+        bookingRepository.deleteByBookingCode(bookingCode);
+    }
 }

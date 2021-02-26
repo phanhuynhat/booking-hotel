@@ -16,4 +16,7 @@ public interface BookingServiceIF {
 
     String createBookingCode();
 
+    void removeBookingByPromotionCode(String bookingCode);
+
+
 }

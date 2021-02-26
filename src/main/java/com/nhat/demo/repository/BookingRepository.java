@@ -15,4 +15,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
             "as night from booking where booking_code =?1")
     int getNightByBookingCode(String bookingCode);
 
+
+    void deleteByBookingCode(String bookingCode);
+
 }

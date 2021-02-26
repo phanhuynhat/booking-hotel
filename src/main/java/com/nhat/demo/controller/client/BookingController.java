@@ -11,17 +11,16 @@ import com.nhat.demo.model.BookingItem;
 import com.nhat.demo.repository.BookingDetailRepository;
 import com.nhat.demo.service.BookingServiceIF;
 import com.nhat.demo.service.CreditCardServiceIF;
+import com.nhat.demo.service.RoomServiceIF;
 import com.nhat.demo.service.serviceIml.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Controller
@@ -35,28 +34,64 @@ public class BookingController {
 
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private RoomServiceIF roomService;
 
 
     @Autowired
     private BookingDetailRepository bookingDetailRepository;
 
 
-
-
     // xac nhan thong tin adults, children khi dat mot phong
     @GetMapping("/room-booking")
-    public String toRoomBookingPages(Model model) {
+    public String toRoomBookingPages(@RequestParam int roomId, Model model) {
+        int childrenCapacity = roomService.getRoomById(roomId).getRoomType().getChildrenCapacity();
+        int adultCapacity = roomService.getRoomById(roomId).getRoomType().getAdultCapacity();
+        model.addAttribute("childrenCapacity", childrenCapacity);
+        model.addAttribute("adultCapacity", adultCapacity);
+
         return "client/room-booking";
     }
 
 
     @GetMapping("/booking-done/{bookingCode}")
     public String toBookingDonePage(@PathVariable String bookingCode, Model model) {
-        model.addAttribute("booking", bookingService.getBookingByBookingCode(bookingCode));
+        Booking booking = bookingService.getBookingByBookingCode(bookingCode);
+        model.addAttribute("booking", booking);
 
-
+        //phan nay dung de tao mot bien lam can cu de cho phep huy phong hay khong
+        LocalDate now = LocalDate.now();
+        LocalDate checkInDate = booking.getCheckInDate();
+        model.addAttribute("isBeforeCheckInDate", now.isBefore(checkInDate));
         return "client/booking-done";
 
+    }
+
+
+    @GetMapping("/booking-info")
+    public String toBokingInfo(@RequestParam String bookingCode, Model model) {
+        model.addAttribute("viewInfo", Boolean.TRUE);
+        return "forward:/booking-done/" + bookingCode;
+
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @PostMapping("cancel-booking")
+    public String toCancelBooking(@RequestParam String bookingCode) {
+        bookingService.removeBookingByPromotionCode(bookingCode);
+        return "client/cancel-booking";
+    }
+
+
+    // tim kiem bookingCode duoi database
+    @PostMapping("/lookup")
+    @ResponseBody
+    public String toLookupPage(@RequestParam String bookingCode, Model Model) {
+        Booking booking = bookingService.getBookingByBookingCode(bookingCode);
+        if (booking == null) {
+            return "not found";
+        }
+        return "found";
     }
 
 
@@ -64,7 +99,8 @@ public class BookingController {
     @PostMapping("/booking-process")
     @Transactional(rollbackOn = Exception.class)
     @ResponseBody
-    public Object checkCreditCart(BookingDTO bookingDTO) throws MessagingException {
+    public Object bookingProcess(BookingDTO bookingDTO) throws MessagingException {
+
         //tao CreditCard tu BookingDTO
         CreditCard creditCard = new CreditCard();
         creditCard.setOwnerName(bookingDTO.getOwnerName());
