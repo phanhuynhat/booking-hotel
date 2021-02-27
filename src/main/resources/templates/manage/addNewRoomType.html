@@ -52,48 +52,50 @@
                 <div class="col-md-10">
                     <div class="content-box-large">
                         <div class="panel-body">
-                            <form class="form-horizontal" action="">
+                            <form class="form-horizontal" th:action="@{saveNewRoomType}" th:object="${roomType}" method="post" enctype="multipart/form-data">
 
-                                    <legend>THÊM MỚI PHÒNG</legend>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" >Tên loại phòng</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" placeholder="Tên loại phòng" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label" >Giá của phòng</label>
-                                        <div class="col-md-10">
-                                            <input class="form-control" placeholder="Giá của phòng" type="text">
-                                        </div>
-                                    </div>
-
+                                <legend>THÊM MỚI LOẠI PHÒNG</legend>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label" >Mô tả về phòng</label>
+                                    <label class="col-md-2 control-label" >Tên loại phòng</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" placeholder="Mô tả về phòng" type="text">
+                                        <input class="form-control" placeholder="Tên loại phòng" type="text" th:field="*{typeName}" >
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" >Giá của phòng</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" placeholder="Giá của phòng" type="text" th:field="*{unitPrice}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" >Mô tả phòng</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" placeholder="Mô tả phòng" type="text" th:field="*{description}">
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >Số lượng người lớn</label>
                                     <div class="col-md-10">
-                                        <input class="form-control"  type="text">
+                                        <input class="form-control" placeholder="Số lượng người lớn" type="text" th:field="*{adultCapacity}">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >Số lượng trẻ em</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" placeholder="Số lượng trẻ em" type="text" th:field="*{childrenCapacity}">
                                     </div>
                                 </div>
 
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Thêm hình ảnh</label>
-                                        <div class="col-md-10">
-                                            <input type="file" class="btn btn-default" id="exampleInputFile1" required>
-                                        </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Chọn ảnh</label>
+                                    <div class="col-md-5">
+                                        <input type="file" name="files" multiple required>
                                     </div>
+                                </div>
 
                                 <div class="form-actions">
                                     <div class="row">
