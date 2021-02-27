@@ -23,9 +23,6 @@ public class Transaction {
     @JoinColumn(name = "booking_id")
     private Booking booking;
 
-    @ManyToOne
-    @JoinColumn(name = "credit_card_id")
-    private CreditCard creditCard;
 
 
 }

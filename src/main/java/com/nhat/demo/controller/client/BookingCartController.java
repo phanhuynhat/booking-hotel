@@ -55,14 +55,15 @@ public class BookingCartController {
     @PostMapping("/checkPromotion")
     public String checkPromotion(@RequestParam String promotionCode, Model model) {
         //kiem tra xem co duoi dababase khong
-        Promotion promotion = promotionService.getPromotionById(promotionCode);
-        if (promotion != null) {
+        boolean isVaid = promotionService.checkStatusPromotion(promotionCode);
+        if (isVaid) {
             //ton tai ma giam gia do
             // dua promotion vao cart
+            Promotion promotion = promotionService.getPromotionById(promotionCode);
             bookingCart.setPromotion(promotion);
 
         } else {
-            model.addAttribute("message", "mã giảm giá không tồn tại");
+            model.addAttribute("message", "mã giảm giá không tồn tại hoặc quá hạn sử dụng");
         }
 
 

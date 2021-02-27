@@ -7,5 +7,8 @@ public interface PromotionServiceIF {
 
         Promotion getPromotionById(String promotionCode);
 
+        boolean checkStatusPromotion(String promotionCode);
+
+
 
 }

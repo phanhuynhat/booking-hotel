@@ -90,8 +90,8 @@
                     <div class="col-sm-6">
                         <h4>Loại Phòng: <span th:text="${room.roomType.typeName}"></span></h4>
                         <h4>Số Phòng: <span th:text="${room.roomNumber}"></span></h4>
-                        <h4>Người lớn: <span>3</span></h4>
-                        <h4>Trẻ em: <span>4</span></h4>
+                        <h4>Người lớn: <span>[[${room.roomType.adultCapacity}]]</span></h4>
+                        <h4>Trẻ em: <span>[[${room.roomType.childrenCapacity}]]</span></h4>
 
                         <h4>Mô tả : <span th:text="${room.roomType.description}"></span>
                         </h4>

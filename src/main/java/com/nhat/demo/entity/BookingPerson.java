@@ -23,4 +23,7 @@ public class BookingPerson {
     private String indentifyNo;
     @OneToOne(mappedBy = "bookingPerson", fetch =FetchType.LAZY )
     private Booking booking;
+
+    private String CardNumber;
+
 }

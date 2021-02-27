@@ -42,7 +42,7 @@ public class BookingController {
     private BookingDetailRepository bookingDetailRepository;
 
 
-    // xac nhan thong tin adults, children khi dat mot phong
+    // xac nhan lai thong tin adults, children khi dat mot phong
     @GetMapping("/room-booking")
     public String toRoomBookingPages(@RequestParam int roomId, Model model) {
         int childrenCapacity = roomService.getRoomById(roomId).getRoomType().getChildrenCapacity();
@@ -78,7 +78,17 @@ public class BookingController {
     @Transactional(rollbackOn = Exception.class)
     @PostMapping("cancel-booking")
     public String toCancelBooking(@RequestParam String bookingCode) {
+
+        // hoan lai 80% cho khach hang
+        Booking booking = bookingService.getBookingByBookingCode(bookingCode);
+        String cardNumber = booking.getBookingPerson().getCardNumber();
+        double amount = booking.getTotal() * 0.8;
+
+        creditCardService.tranferMoney(CreditCardServiceIF.HOTELCARD,cardNumber, amount );
+        //xoa bo booking
         bookingService.removeBookingByPromotionCode(bookingCode);
+
+
         return "client/cancel-booking";
     }
 
@@ -148,6 +158,7 @@ public class BookingController {
         bookingPerson.setEmail(bookingDTO.getEmail());
         bookingPerson.setPhone(bookingDTO.getPhone());
         bookingPerson.setIndentifyNo(bookingDTO.getIndentifyNo());
+        bookingPerson.setCardNumber(bookingDTO.getCardNumber());
 
         //setbookingperson cho booking
         booking.setBookingPerson(bookingPerson);
