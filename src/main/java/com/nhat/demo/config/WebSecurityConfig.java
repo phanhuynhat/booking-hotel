@@ -17,11 +17,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private AccountDetailsServiceImpl accountDetailsService;
 
+  @Autowired
+  private UrlAuthenticationSuccessHandler urlAuthenticationSuccessHandler;
+
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     return bCryptPasswordEncoder;
   }
+
+//  @Bean
+//  public UrlAuthenticationSuccessHandler urlSuccessHandler(){
+//    UrlAuthenticationSuccessHandler urlAuthenticationSuccessHandler = new UrlAuthenticationSuccessHandler();
+//    return urlAuthenticationSuccessHandler;
+//  }
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,12 +44,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers("/login", "/logout").permitAll();
     http.authorizeRequests().antMatchers("/").permitAll();
 //    http.authorizeRequests().antMatchers("/").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
-    http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+    http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+    http.authorizeRequests().antMatchers("/staff/**").access("hasAnyRole('ROLE_STAFF','ROLE_ADMIN')");
     http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
     http.authorizeRequests().and().formLogin()
             .loginProcessingUrl("/login")
             .loginPage("/login")
-            .defaultSuccessUrl("/admin")
+//            .defaultSuccessUrl("/admin")
+            .successHandler(urlAuthenticationSuccessHandler)
             .failureUrl("/login?error=true")
             .usernameParameter("username")
             .passwordParameter("password")

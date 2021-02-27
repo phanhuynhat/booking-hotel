@@ -4,6 +4,9 @@ import com.nhat.demo.entity.Room;
 import com.nhat.demo.repository.RoomRepository;
 import com.nhat.demo.service.RoomServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,6 +31,13 @@ public class RoomServiceImpl implements RoomServiceIF {
     @Override
     public void removeRoom(int roomId) {
         roomRepository.deleteById(roomId);
+    }
+
+    @Override
+    public Page<Room> getAllRoom(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1,7);
+        Page<Room> rooms = roomRepository.findAll(pageable);
+        return rooms;
     }
 
 }

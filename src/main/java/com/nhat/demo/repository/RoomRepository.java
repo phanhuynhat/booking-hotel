@@ -1,8 +1,12 @@
 package com.nhat.demo.repository;
 
 import com.nhat.demo.entity.Room;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,5 +25,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             " order by room_type.unit_price asc")
     List<Room> findAvailableRoom(LocalDate checkInDate, LocalDate checkOutDate, int adults, int children);
 
+    Room findByRoomNumber(int roomNumber);
+
+    Page<Room> findAll(Pageable pageable);
 
 }

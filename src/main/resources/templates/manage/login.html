@@ -67,28 +67,29 @@
     </style>
 </head>
 <body>
+<div style="display: flex;
+    justify-content: center;">
+    <div style="width: 400px">
+        <h2 style="text-align: center">Login Form</h2>
 
-<h2>Login Form</h2>
+        <form action="/login" method="post" >
 
-<form action="/action_page.php" method="post">
+            <div class="container">
+                <div class="row">
+                    <label><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" required>
 
-    <div class="container">
-        <div class="row">
-        <label><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+                    <label><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" required>
 
-        <label><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-
-        <button type="submit">Login</button>
-        </div>
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Cancel</button>
 
-    </div>
-</form>
 
 </body>
 </html>
