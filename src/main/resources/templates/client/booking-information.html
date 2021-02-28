@@ -106,24 +106,12 @@
                                                 </div>
                                                 <div class="single-room-details pl-50">
                                                     <a th:href="@{/cart/removeRoom(roomId=${bookingItem.room.roomId})}" class="btn btn-danger">xoá</a>
-                                                    <h3 class="s_room_title">phòng số:
-                                                        <span th:text="${bookingItem.room.roomNumber}"></span>, Loại
-                                                        phòng:
-                                                        <span th:text="${bookingItem.room.roomType.typeName}">deluxe</span>
-                                                    </h3>
+                                                    <h3 class="s_room_title">phòng số: [[${bookingItem.room.roomNumber}]], Loại phòng: [[${bookingItem.room.roomType.typeName}]]</h3>
                                                     <div class="room_price">
-                                                        <h4>Đơn giá:
-                                                            <span th:text="${#numbers.formatCurrency(unitPrice)}">800,000</span>/đêm
-                                                        </h4>
-                                                        <h5>Số đêm:
-                                                            <span th:text="${bookingItem.countNight(checkInDate, checkOutDate)}">3</span>
-                                                        </h5>
-                                                        <h5>Thành
-                                                            tiền:<span th:text="${#numbers.formatCurrency(subTotal)}">1,600,000</span>
-                                                        </h5>
-                                                        <h5>
-                                                            Số người lớn: <span th:text="${adults}">3</span>, số trẻ em:<span th:text="${children}">2</span>
-                                                        </h5>
+                                                        <h4>Đơn giá: [[${#numbers.formatInteger(unitPrice, 0,'COMMA')}]] Đ/đêm</h4>
+                                                        <h5>Số đêm: [[${bookingItem.countNight(checkInDate, checkOutDate)}]]</h5>
+                                                        <h5>Thành tiền: [[${#numbers.formatInteger(subTotal, 0,'COMMA')}]] Đ</h5>
+                                                        <h5>Số người lớn: [[${adults}]], số trẻ em: [[${children}]]</h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -138,16 +126,11 @@
                                                     <p id="message" th:if="${message}" th:text="${message}"></p>
                                                 </div>
 
-                                                <h3 id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">
-                                                    giảm giá:
-                                                    <span th:text="${#numbers.formatCurrency(@bookingCart.promotion.promotionValue)}"></span>
-                                                </h3>
+                                                <h3  style="color:#3ac4fa;" id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">Giảm giá: [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue, 0,'COMMA')}]]</h3>
 
-                                                <h3>tổng cộng:
-                                                    <span th:text="${#numbers.formatCurrency(@bookingCart.calculateTotal())}"></span>
-                                                </h3>
-                                                <div class="prve-next-box mt-20">
-                                                    <button type="button" id="nextToPersonal">Next</button>
+                                                <h3 style="color:#3ac4fa;">Tổng Thanh toán: [[${#numbers.formatInteger(@bookingCart.calculateTotal(), 0,'COMMA')}]] Đ</h3>
+                                                <div class="prve-next-box mt-40">
+                                                    <button type="button" id="nextToPersonal">Tiếp tục</button>
                                                 </div>
 
                                             </div>
@@ -221,7 +204,7 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="prve-next-box mt-20">
+                                                    <div class="prve-next-box mt-40">
 
                                                         <button id="NextToPayment" type="submit">Next</button>
                                                     </div>
@@ -276,8 +259,8 @@
                                                     <tr th:with="checkInDate=${@bookingCart.checkInDate},checkOutDate=${@bookingCart.checkOutDate}">
                                                         <th th:text="${@bookingCart.bookingItems.size()}"></th>
                                                         <th th:text="${@bookingCart.bookingItems.values()[0].countNight(checkInDate, checkOutDate)}"></th>
-                                                        <th th:text="${#numbers.formatCurrency(@bookingCart.promotion.promotionValue)}"></th>
-                                                        <th th:text="${#numbers.formatCurrency(@bookingCart.calculateTotal())}"></th>
+                                                        <th>[[${#numbers.formatInteger(@bookingCart.promotion.promotionValue, 0,'COMMA')}]]</th>
+                                                        <th>[[${#numbers.formatInteger(@bookingCart.calculateTotal(), 0,'COMMA')}]]</th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -327,33 +310,7 @@
             <!--Room booking end-->
 
             <!--hotel team start-->
-            <div class="hotel-team white_bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="newsletter">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="newsletter-title">
-                                            <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="newsletter-form">
-                                            <form id="mc-form" class="mc-form">
-                                                <input id="mc-email" type="email" autocomplete="off"
-                                                       placeholder="Enter Address..."/>
-                                                <button id="mc-submit" type="submit">Subscribe</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
             <!--hotel team end-->
             <!--Footer start -->
             <th:block th:include="client/fragment::footer-copyright"></th:block>

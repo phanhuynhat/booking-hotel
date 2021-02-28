@@ -28,6 +28,9 @@
     position: absolute;
     top: 46%;
     left: 42%;
+    height: 50px;
+    width: 105px;
+    line-height: 49px;
 }
 
 
@@ -36,12 +39,17 @@
     border: 1px solid #3ac4fa;
     padding: 10px;
     position: relative;
+    width: 100%;
 }
 
 .single-room-details.fix a.btn {
     position: absolute;
-    top: 50%;
-    left: 70%;
+    top: 33%;
+    left: 88%;
+    height: 50px;
+    width: 75px;
+    line-height: 50px;
+    font-size: 1.5em;
 }
 
 
@@ -64,3 +72,46 @@
 
 
 
+h1.cd-headline.clip {
+    FONT-SIZE: 3.5em;
+}
+
+
+h4 {color: #4fc1f0;}
+
+h4 span{
+    color: #333;
+}
+
+
+
+.container.convenience {
+    margin-top:75px;
+    padding-bottom: 75px;
+}
+
+
+
+.hotel-team.pt-100.white_bg {
+    background-image: url('/images/bg/cool-background.png');
+}
+
+#promotionForm {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+#promotionForm input[type='text'] {
+    background: white;
+    width:  500px;
+}
+
+#promotionForm input[type='submit'] {
+    background: #4fc1f0;
+    width: 100px;
+    margin-left: 5px;
+    color: white;
+
+}

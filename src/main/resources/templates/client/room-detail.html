@@ -57,7 +57,7 @@
             <div class="hotel-team pt-100 white_bg">
                 <div class="container">
                     <div class="col-sm-6">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="1500">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#myCarousel" th:attr="data-slide-to=${status.index}"
@@ -97,7 +97,7 @@
                         </h4>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container convenience">
                     <div class="col-sm-12">
                         <h2>Tiện Nghi:</h2>
                         <ul class="list-unstyled card-columns">
@@ -108,32 +108,11 @@
 
 
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="newsletter">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="newsletter-title">
-                                    <h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="newsletter-form">
-                                    <form id="mc-form" class="mc-form">
-                                        <input id="mc-email" type="email" autocomplete="off"
-                                               placeholder="Enter Address..."/>
-                                        <button id="mc-submit" type="submit">Subscribe</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <!--hotel team end-->
         <!--Footer start -->
         <th:block th:include="client/fragment::footer-copyright"></th:block>
+        <link rel="stylesheet" href="/css/room-detail.css">
         <!-- Footer end -->
 
 

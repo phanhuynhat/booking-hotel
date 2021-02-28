@@ -76,7 +76,7 @@ public class BookingController {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    @PostMapping("cancel-booking")
+    @PostMapping("/cancel-booking")
     public String toCancelBooking(@RequestParam String bookingCode) {
 
         // hoan lai 80% cho khach hang

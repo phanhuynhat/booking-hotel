@@ -38,29 +38,29 @@
 					<div class="col-md-4 col-sm-5">
 						<div class="booking-box">
 							<div class="booking-title">
-								<h3>Book A Room</h3>
-								<p>There are many vars of passageson't look even slightly believable.</p>
+								<h3>Đặt phòng</h3>
+								<p>Chúng tôi có rất nhiều loại phòng khác nhau, xin nhập thông <tin></tin></p>
 							</div>
 							<div class="booking-form">
 								<form th:action="@{/search-available-room}" method="POST">
 									<div class="b-date arrive mb-15">
 										<input class="date-picker" type="text" id="checkInDate" name="checkInDate"
-										       placeholder="check in date" required>
+										       placeholder="Ngày đến" required readonly>
 										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
 									<div class="b-date departure mb-15">
 										<input class="date-picker" type="text" id="checkOutDate" name="checkOutDate"
-										       placeholder="check out date" required>
+										       placeholder="Ngày đi" required readonly>
 										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
-									<div class="b-date mb-15"><input type="number" name="adults" placeholder="adults"
-									                                 required>
+									<div class="b-date mb-15"><input type="number" name="adults" placeholder="Số người lớn"
+									                                 required min="1">
 									</div>
 									<div class="b-date mb-15"><input type="number" name="children"
-									                                 placeholder="Children" required></div>
+									                                 placeholder="Số trẻ em" required min="1"></div>
 
 									<div class="submit-form">
-										<button type="submit">Check Availability</button>
+										<button type="submit">Tìm phòng trống</button>
 									</div>
 								</form>
 							</div>
@@ -69,20 +69,17 @@
 					<div class="col-md-8 col-sm-7">
 						<div class="welcome-text">
 							<h2>
-								<span></span> <span class="coloring">Chondo</span>
+								<span></span> <span class="coloring">NHẬT-VƯƠNG HOTEL</span>
 							</h2>
 							<h1 class="cd-headline clip">
-								<span>THE PERFECT</span>
+								<span>MANG ĐẾN SỰ</span>
 								<span class="cd-words-wrapper coloring">
-                                        <b class="is-visible"> LOCATION</b>
-                                        <b>Room</b>
-                                        <b>places</b>
+                                        <b class="is-visible"> TIỆN NGHI</b>
+                                        <b>HÀI LÒNG</b>
+                                        <b>TẬN TÌNH</b>
                                     </span>
 							</h1>
-							<p class="welcome-desc">There are many variations of passages of Lorem Ipsum available, but
-							                        the majority have suffered alteration in some form, by injected
-							                        humour, or randomised words which don't look even slightly
-							                        believable.</p>
+							<p class="welcome-desc">Được xây dựng theo tiêu chuẩn 5 sao, Khách sạn NHẬT-VƯƠNG HOTEL Đà Nẵng nằm bên bờ biển Mỹ Khê xinh đẹp, sẽ mang đến cho du khách một không gian sang trọng, quý phái khi đển thăm thành phố Đà Nẵng.</p>
 							<div class="explore">
 								<a href="#">EXPLORE IT</a>
 							</div>
@@ -102,13 +99,13 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title mb-80">
-						<h2>About <span>Chondo</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<h2>About <span>NHẬT-VƯƠNG HOTEL</span></h2>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 				<div class="col-md-12">
-					<div class="about-chondo">
+					<div class="about-NHẬT-VƯƠNG HOTEL">
 						<div class="about-member">
 							<img src="images/about.jpg" alt="">
 							<h3>Mohin patwary</h3>
@@ -127,8 +124,8 @@
 				<div class="col-md-12">
 					<div class="section-title mb-75">
 						<h2>our <span>Room</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 			</div>
@@ -145,7 +142,7 @@
 										<h3><a href="#" th:text="${type.typeName}">Room type name</a></h3>
 									</div>
 									<div class="room-rent">
-										<h5> [[${type.unitPrice}]] Đ / <span>Đêm</span></h5>
+										<h5> [[${#numbers.formatInteger(type.unitPrice, 0,'COMMA')}]] Đ/Đêm</h5>
 									</div>
 									<div class="room-book">
 										<a href="#">Book now</a>
@@ -167,8 +164,8 @@
 				<div class="col-md-12">
 					<div class="section-title mb-80">
 						<h2>our <span>services</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 			</div>
@@ -276,8 +273,8 @@
 				<div class="col-md-12">
 					<div class="section-title mb-80">
 						<h2>our <span>Staff</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 			</div>
@@ -556,8 +553,8 @@
 				<div class="col-md-12">
 					<div class="section-title mb-80">
 						<h2>our <span>Gallery</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 			</div>
@@ -588,8 +585,8 @@
 				<div class="col-md-12">
 					<div class="section-title mb-80">
 						<h2>our <span>News</span></h2>
-						<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-						   suffered by injected humour.</p>
+						<!--						<p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--						   suffered by injected humour.</p>-->
 					</div>
 				</div>
 			</div>
@@ -744,25 +741,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="newsletter">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="newsletter-title">
-									<h2>SUBSCRIBE TO OUR NEWSLETTER</h2>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="newsletter-form">
-									<form id="mc-form" class="mc-form">
-										<input id="mc-email" type="email" autocomplete="off"
-										       placeholder="Enter Address..."/>
-										<button id="mc-submit" type="submit">Subscribe</button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+</div>
 			</div>
 		</div>
 
