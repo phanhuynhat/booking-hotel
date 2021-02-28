@@ -17,5 +17,9 @@ public class LoginController {
     return "/manage/403";
   }
 
+  @GetMapping("/logoutSuccessful")
+  public String logoutSuccessful(Model model) {
+    return "/manage/login";
+  }
 }
 

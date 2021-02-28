@@ -29,4 +29,12 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     Page<Room> findAll(Pageable pageable);
 
+    @Query(nativeQuery = true,
+    value = "SELECT r.*, t.* \n" +
+            "FROM room r INNER JOIN room_type t \n" +
+            "on r.room_type_id = t.room_type_id \n" +
+            "where r.room_number like %?1%\n" +
+            "or r.floor like %?1% or t.type_name like %?1% ;")
+    List<Room> getSearchRoom(String searchText);
+
 }

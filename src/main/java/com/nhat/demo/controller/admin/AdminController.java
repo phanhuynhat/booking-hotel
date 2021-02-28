@@ -125,6 +125,13 @@ public class AdminController {
         return "/manage/viewAllRoom";
     }
 
+    @PostMapping("searchRoom")
+    public String searchRoom(Model model, @RequestParam("searchRoom") String searchText){
+        List<Room> rooms = roomServiceIF.getRoomSearch(searchText);
+        model.addAttribute("rooms",rooms);
+        return "/manage/viewSearchRoom";
+    }
+
 
 //    @GetMapping("viewAllRoom")
 //    public String viewAllRoom(Model model, HttpServletRequest request, RedirectAttributes redirect) {

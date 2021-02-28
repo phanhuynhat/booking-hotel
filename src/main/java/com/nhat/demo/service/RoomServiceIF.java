@@ -17,4 +17,6 @@ public interface RoomServiceIF {
 
     Page<Room> getAllRoom(int pageNumber);
 
+    List<Room> getRoomSearch(String searchText);
+
 }

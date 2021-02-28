@@ -40,4 +40,10 @@ public class RoomServiceImpl implements RoomServiceIF {
         return rooms;
     }
 
+    @Override
+    public List<Room> getRoomSearch(String searchText) {
+        List<Room> rooms = roomRepository.getSearchRoom(searchText);
+        return rooms;
+    }
+
 }

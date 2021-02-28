@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -76,6 +76,13 @@
 
             <div class="container">
                 <div class="row">
+                    <div th:if="${param.error}" style="color: red">
+                        Tài khoản hoặc mật khẩu không đúng !!!
+                    </div>
+                    <div th:if="${param.logout}" >
+                        Đăng xuất thành công !!!
+                    </div>
+                    <br>
                     <label><b>Username</b></label>
                     <input type="text" placeholder="Enter Username" name="username" required>
 
