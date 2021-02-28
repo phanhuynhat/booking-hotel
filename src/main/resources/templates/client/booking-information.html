@@ -1,8 +1,9 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="client/fragment::baseHeader(~{::title},~{},~{})">
+    <head th:replace="client/fragment::baseHeader(~{::title},~{::link},~{})">
         <title>Thông tin đặt phòng</title>
+        <link rel="stylesheet" href="/css/shortcode/booking-information.css">
     </head>
 
 
@@ -106,11 +107,16 @@
                                                 </div>
                                                 <div class="single-room-details pl-50">
                                                     <a th:href="@{/cart/removeRoom(roomId=${bookingItem.room.roomId})}" class="btn btn-danger">xoá</a>
-                                                    <h3 class="s_room_title">phòng số: [[${bookingItem.room.roomNumber}]], Loại phòng: [[${bookingItem.room.roomType.typeName}]]</h3>
+                                                    <h3 class="s_room_title">phòng số:
+                                                        [[${bookingItem.room.roomNumber}]], Loại phòng:
+                                                        [[${bookingItem.room.roomType.typeName}]]</h3>
                                                     <div class="room_price">
-                                                        <h4>Đơn giá: [[${#numbers.formatInteger(unitPrice, 0,'COMMA')}]] Đ/đêm</h4>
-                                                        <h5>Số đêm: [[${bookingItem.countNight(checkInDate, checkOutDate)}]]</h5>
-                                                        <h5>Thành tiền: [[${#numbers.formatInteger(subTotal, 0,'COMMA')}]] Đ</h5>
+                                                        <h4>Đơn giá: [[${#numbers.formatInteger(unitPrice, 0,'COMMA')}]] Đ
+                                                            Đ/đêm</h4>
+                                                        <h5>Số đêm: [[${bookingItem.countNight(checkInDate,
+                                                            checkOutDate)}]]</h5>
+                                                        <h5>Thành tiền: [[${#numbers.formatInteger(subTotal,
+                                                            0,'COMMA')}]] Đ</h5>
                                                         <h5>Số người lớn: [[${adults}]], số trẻ em: [[${children}]]</h5>
                                                     </div>
                                                 </div>
@@ -126,9 +132,14 @@
                                                     <p id="message" th:if="${message}" th:text="${message}"></p>
                                                 </div>
 
-                                                <h3  style="color:#3ac4fa;" id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">Giảm giá: [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue, 0,'COMMA')}]]</h3>
+                                                <h3 style="color:#3ac4fa;" id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">
+                                                    Giảm giá:
+                                                    [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue,
+                                                    0,'COMMA')}]] Đ</h3>
 
-                                                <h3 style="color:#3ac4fa;">Tổng Thanh toán: [[${#numbers.formatInteger(@bookingCart.calculateTotal(), 0,'COMMA')}]] Đ</h3>
+                                                <h3 style="color:#3ac4fa;">Tổng Thanh toán:
+                                                    [[${#numbers.formatInteger(@bookingCart.calculateTotal(),
+                                                    0,'COMMA')}]] Đ</h3>
                                                 <div class="prve-next-box mt-40">
                                                     <button type="button" id="nextToPersonal">Tiếp tục</button>
                                                 </div>
@@ -143,7 +154,7 @@
                                                                 <input type="text" placeholder="Ngày đến" name="checkInDate" th:value="${#temporals.format(@bookingCart.checkInDate,'dd/MM/yyyy')}" readonly>
                                                             </div>
                                                             <div class="select-option">
-                                                                <input type="number" placeholder="Số người lớn" name="adults">
+                                                                <input type="number" placeholder="Số người lớn" name="adults" required min="0">
                                                             </div>
                                                         </div>
                                                         <div class="single-form-part">
@@ -152,7 +163,7 @@
                                                                 <input type="text" placeholder="Ngày đi" name="checkOutDate" th:value="${#temporals.format(@bookingCart.checkOutDate,'dd/MM/yyyy')}" readonly>
                                                             </div>
                                                             <div class="select-option">
-                                                                <input type="number" placeholder="Số trẻ em" name="children">
+                                                                <input type="number" placeholder="Số trẻ em" name="children" required min="0">
                                                             </div>
                                                         </div>
 
@@ -206,7 +217,7 @@
                                                     </div>
                                                     <div class="prve-next-box mt-40">
 
-                                                        <button id="NextToPayment" type="submit">Next</button>
+                                                        <button id="NextToPayment" type="submit">Tiếp Tục</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -234,7 +245,7 @@
                                                                 <a href="#"><img src="/images/logo/pay-card.png" alt=""></a>
                                                             </div>
                                                             <div class="pay-order">
-                                                                <button type="submit">Pay now</button>
+                                                                <button type="submit">Thanh toán</button>
                                                             </div>
                                                         </div>
                                                         <div id="credit-cart-error"></div>
@@ -259,8 +270,13 @@
                                                     <tr th:with="checkInDate=${@bookingCart.checkInDate},checkOutDate=${@bookingCart.checkOutDate}">
                                                         <th th:text="${@bookingCart.bookingItems.size()}"></th>
                                                         <th th:text="${@bookingCart.bookingItems.values()[0].countNight(checkInDate, checkOutDate)}"></th>
-                                                        <th>[[${#numbers.formatInteger(@bookingCart.promotion.promotionValue, 0,'COMMA')}]]</th>
-                                                        <th>[[${#numbers.formatInteger(@bookingCart.calculateTotal(), 0,'COMMA')}]]</th>
+                                                        <th>
+                                                            [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue,
+                                                            0,'COMMA')}]] Đ
+                                                        </th>
+                                                        <th>[[${#numbers.formatInteger(@bookingCart.calculateTotal(),
+                                                            0,'COMMA')}]] Đ
+                                                        </th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -318,119 +334,10 @@
         </div>
 
 
-        <!-- Placed js at the end of the document so the pages load faster -->
-
-        <!-- jquery latest version -->
-        <script src="/js/vendor/jquery-1.12.0.min.js"></script>
-        <!-- Bootstrap framework js -->
-        <script src="/js/bootstrap.min.js"></script>
-        <!--counter up js-->
-        <script src="/js/waypoints.min.js"></script>
-        <script src="/js/jquery.counterup.min.js"></script>
-        <!-- Video player js -->
-        <script src="/js/video-player.js"></script>
-        <!-- headlines js -->
-        <script src="/js/animated-headlines.js"></script>
-        <!-- Ajax mail js -->
-        <script src="/js/mailchimp.js"></script>
-        <!-- Ajax mail js -->
-        <script src="/js/ajax-mail.js"></script>
-        <!-- parallax js -->
-        <script src="/js/parallax.js"></script>
-        <!-- textilate js -->
-        <script src="/js/textilate.js"></script>
-        <script src="/js/lettering.js"></script>
-        <!--isotope js-->
-        <script src="/js/isotope.pkgd.min.js"></script>
-        <script src="/js/packery-mode.pkgd.min.js"></script>
-        <!-- Style Customizer Js  -->
-        <script src="/js/style-customizer.js"></script>
-        <!-- Owl carousel Js -->
-        <script src="/js/owl.carousel.min.js"></script>
-        <!--Magnificant js-->
-        <script src="/js/jquery.magnific-popup.js"></script>
-        <!-- All js plugins included in this file. -->
-        <script src="/js/plugins.js"></script>
-        <!-- Main js file that contents all jQuery plugins activation. -->
-        <script src="/js/main.js"></script>
+        <div th:replace="client/fragment::javacriptLink"></div>
+        <script src="/js/booking-information.js"></script>
 
 
-        <script>
-            // vo hieu hoa click tren moi tab
-            $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
-                event.preventDefault()
-                event.stopPropagation();
-            });
-
-
-            if ($("#promotion").length || !$(".single-room-details.fix").length) {
-                // neu co ton tai phan tu h4#promotion (hien thi promotion value)
-                // vo hieu hoa form (checkpromtion)
-                $("#promotionForm").hide();
-
-            }
-
-            $("#nextToPersonal").click(function () {
-                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
-                $("#personalTab").click();
-                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
-                    event.preventDefault()
-                    event.stopPropagation();
-                });
-
-            });
-
-
-            $("#personalForm").submit(function (event) {
-                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
-                event.preventDefault();
-                $("#paymentTab").click();
-                $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
-                    event.preventDefault()
-                    event.stopPropagation();
-                });
-            });
-
-            $("#payForm").submit(function (event) {
-                event.preventDefault();
-                $('#credit-cart-error').html('<img src="http://preloaders.net/preloaders/287/Filling%20broken%20ring.gif"> loading...');
-                var queryString = $(this).serialize() + '&' + $('#personalForm').serialize();
-                $.ajax(
-                    {
-                        url: '/booking-process',
-                        type: "POST",
-                        data: queryString,
-                        success: function (result) {
-                            console.log(result);
-                            // XU LY LOGIC O DAY
-                            if (result == "not match") {
-                                $('#credit-cart-error').html("Thông tin thẻ không chính xác");
-                                return;
-                            } else if (result == "not enough") {
-                                $('#credit-cart-error').html("Thẻ hiện không có đủ tiền");
-                                return;
-                            }
-
-
-                            // neu thanh cong thi redirect den /booking-done/<bookingDone>
-                            window.location.replace('/booking-done/' + result)
-
-                            // $('#bookingCode').html('Mã đặt phòng của bạn là: ' + result.);
-                            // $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');
-                            // $('#doneTab').click();
-                            // $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").click(function (event) {
-                            //     event.preventDefault()
-                            //     event.stopPropagation();
-                            // });
-                        }
-
-
-                    }
-                )
-            });
-
-
-        </script>
 
 
     </body>

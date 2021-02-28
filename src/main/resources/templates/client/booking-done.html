@@ -97,7 +97,7 @@
                                                     <div class="room_price">
                                                         <h4>Total Price</h4>
                                                         <h5>$550 <span>/per night</span></h5>
-                                                        <h3>Mã đặt phòng của bạn là: [[${booking.bookingCode}]]</h3>
+                                                        <h3 style="font-size: 25px">Mã đặt phòng của bạn là: [[${booking.bookingCode}]]</h3>
                                                     </div>
                                                 </div>
                                             </div>
@@ -289,22 +289,31 @@
                                                             <td th:text="${item.adults}"></td>
                                                             <td th:text="${item.chidren}"></td>
                                                             <td th:text="${item.night}"></td>
-                                                            <td th:text="${#numbers.formatCurrency(item.room.roomType.unitPrice)}"></td>
-                                                            <td th:text="${#numbers.formatCurrency(item.subTotal)}"></td>
+                                                            <td>[[${#numbers.formatInteger(item.room.roomType.unitPrice,
+                                                                0,'COMMA')}]] Đ
+                                                            </td>
+                                                            <td>[[${#numbers.formatInteger(item.subTotal, 0,'COMMA')}]]
+                                                                Đ
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
                                                             <th colspan="6">Tổng tiền</th>
-                                                            <th th:text="${#numbers.formatCurrency(booking.sumOfSubTotal)}"></th>
+                                                            <th>[[${#numbers.formatInteger(booking.sumOfSubTotal,
+                                                                0,'COMMA')}]] Đ
+                                                            </th>
                                                         </tr>
                                                         <tr th:if="${booking.promotion}">
                                                             <th colspan="6">Giảm giá</th>
-                                                            <th th:text="${#numbers.formatCurrency(booking.promotion.promotionValue)}"></th>
+                                                            <th>
+                                                                [[${#numbers.formatInteger(booking.promotion.promotionValue,
+                                                                0,'COMMA')}]] Đ
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th colspan="6">Thanh toán</th>
-                                                            <th th:text="${#numbers.formatCurrency(booking.total)}"></th>
+                                                            <th>[[${#numbers.formatInteger(booking.total, 0,'COMMA')}]] Đ</th>
                                                         </tr>
                                                     </tfoot>
 
@@ -331,7 +340,8 @@
                                                     </h4>
                                                     <h4>HỌ tên người đặt: <span>[[${booking.bookingPerson.lastName + ' ' + booking.bookingPerson.firstName}]]</span>
                                                     </h4>
-                                                    <p th:if="${isBeforeCheckInDate == false}" id="cannot-cancel">Bạn không thể huỷ đặt phòng vì đã quá thời hạn được huỷ</p>
+                                                    <p th:if="${isBeforeCheckInDate == false}" id="cannot-cancel">Bạn
+                                                        không thể huỷ đặt phòng vì đã quá thời hạn được huỷ</p>
                                                     <form th:if="${isBeforeCheckInDate}" action="/cancel-booking" method="POST">
                                                         <input type="hidden" name="bookingCode" th:value="${booking.bookingCode}">
                                                         <input type="submit" value="Huỷ Đặt phòng">
