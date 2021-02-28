@@ -7,6 +7,7 @@ import com.nhat.demo.entity.Service;
 import com.nhat.demo.repository.RoomRepository;
 import com.nhat.demo.repository.RoomTypeRepository;
 import com.nhat.demo.repository.RoomtypeImageRepository;
+import com.nhat.demo.repository.ServiceRepository;
 import com.nhat.demo.service.HotelSVServiceIF;
 import com.nhat.demo.service.RoomServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class AdminController {
 
     @Autowired
     HotelSVServiceIF hotelSVService;
+
+    @Autowired
+    ServiceRepository serviceRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
@@ -194,7 +198,22 @@ public class AdminController {
         model.addAttribute("currentPage",currentPage);
 
         return "/manage/viewAllService";
-
-
     }
+
+    @GetMapping("/addNewService")
+    public String addNewService(Model model) {
+        model.addAttribute("service", new Service());
+        return "/manage/serviceForm";
+    }
+
+    @PostMapping("/saveOrUpdate")
+    public String saveOrUpdate(@Valid @ModelAttribute Service service, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/manage/serviceForm";
+        }
+        serviceRepository.save(service);
+        return "redirect:/admin/viewAllService";
+    }
+
+
 }
