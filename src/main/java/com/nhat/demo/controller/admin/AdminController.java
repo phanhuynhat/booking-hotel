@@ -3,23 +3,20 @@ package com.nhat.demo.controller.admin;
 import com.nhat.demo.entity.Room;
 import com.nhat.demo.entity.RoomType;
 import com.nhat.demo.entity.RoomTypeImage;
+import com.nhat.demo.entity.Service;
 import com.nhat.demo.repository.RoomRepository;
 import com.nhat.demo.repository.RoomTypeRepository;
 import com.nhat.demo.repository.RoomtypeImageRepository;
+import com.nhat.demo.service.HotelSVServiceIF;
 import com.nhat.demo.service.RoomServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,6 +39,9 @@ public class AdminController {
 
     @Autowired
     RoomServiceIF roomServiceIF;
+
+    @Autowired
+    HotelSVServiceIF hotelSVService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
@@ -176,4 +176,25 @@ public class AdminController {
 //
 //        return "/manage/viewAllRoom";
 //    }
+
+
+    @GetMapping("/viewAllService")
+    public String viewAllService() {
+        return "forward:/admin/viewAllService/page/1";
+    }
+
+    @GetMapping("/viewAllService/page/{pageNumber}")
+    public String listServiceByPage(Model model, @PathVariable("pageNumber") int currentPage ) {
+        Page<Service> services = hotelSVService.getAllserviceByPage(currentPage);
+        int totalPages = services.getTotalPages();
+        long totalItems = services.getTotalElements();
+        model.addAttribute("services",services);
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("totalItems",totalItems);
+        model.addAttribute("currentPage",currentPage);
+
+        return "/manage/viewAllService";
+
+
+    }
 }

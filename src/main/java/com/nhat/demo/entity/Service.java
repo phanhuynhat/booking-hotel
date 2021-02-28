@@ -17,6 +17,7 @@ public class Service {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int serviceId;
     private String serviceName;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private double unitPrice;
     private String unit;
