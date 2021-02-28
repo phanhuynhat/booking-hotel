@@ -14,7 +14,7 @@ public class LoginController {
 
   @GetMapping("/403")
   public String accessDenied() {
-    return "403";
+    return "/manage/403";
   }
 
 }

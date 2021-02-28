@@ -100,21 +100,21 @@ public class HomeController {
 
 
 
-    @GetMapping("/news")
-    public String toNewsPage(Model model) {
-        return "client/news";
-    }  // da  include
-
-    @GetMapping("/staff")
-    public String toStaffPage(Model model) {
-        return "client/staff";
-    }  //da inculude
-
-
-    @GetMapping("/404")
-    public String toPageNotFound(Model model) {
-        return "client/404";
-    } //da in clude
+//    @GetMapping("/news")
+//    public String toNewsPage(Model model) {
+//        return "client/news";
+//    }  // da  include
+//
+//    @GetMapping("/staff")
+//    public String toStaffPage(Model model) {
+//        return "client/staff";
+//    }  //da inculude
+//
+//
+//    @GetMapping("/404")
+//    public String toPageNotFound(Model model) {
+//        return "client/404";
+//    } //da in clude
 
 
 }
