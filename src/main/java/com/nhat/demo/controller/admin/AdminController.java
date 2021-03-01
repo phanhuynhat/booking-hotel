@@ -56,47 +56,47 @@ public class AdminController {
     public String addNewRoom(Model model) {
         List<RoomType> roomTypeList = roomTypeRepository.findAll();
         Room room = new Room();
-        model.addAttribute("room",room);
-        model.addAttribute("roomTypeList",roomTypeList);
+        model.addAttribute("room", room);
+        model.addAttribute("roomTypeList", roomTypeList);
         return "/manage/addNewRoom";
     }
 
     @PostMapping("saveRoom")
-        public String saveRoom(@Valid @ModelAttribute Room room,BindingResult bindingResult, Model model){
+    public String saveRoom(@Valid @ModelAttribute Room room, BindingResult bindingResult, Model model) {
         Room newRoom = roomRepository.findByRoomNumber(room.getRoomNumber());
-        if(newRoom != null){
-            model.addAttribute("errorMessage","Phòng đã tồn tại!!!");
+        if (newRoom != null) {
+            model.addAttribute("errorMessage", "Phòng đã tồn tại!!!");
             List<RoomType> roomTypeList = roomTypeRepository.findAll();
-            model.addAttribute("room",room);
-            model.addAttribute("roomTypeList",roomTypeList);
+            model.addAttribute("room", room);
+            model.addAttribute("roomTypeList", roomTypeList);
             return "/manage/addNewRoom";
         }
         roomRepository.save(room);
         return "/manage/addNewRoom";
-        }
+    }
 
     @GetMapping("addNewRoomType")
     public String addNewRoomType(Model model) {
         RoomType roomType = new RoomType();
-        model.addAttribute("roomType",roomType);
+        model.addAttribute("roomType", roomType);
         return "/manage/addNewRoomType";
     }
 
     @PostMapping("saveNewRoomType")
-    public String saveRoomType(@ModelAttribute RoomType roomType, @RequestParam MultipartFile[] files, Model model){
-           RoomType newRoomType = roomTypeRepository.findByTypeName(roomType.getTypeName());
-           if(newRoomType != null){
-               model.addAttribute("errorMessage","Tên loại phòng đã tồn tại!!!");
-               model.addAttribute("roomType",roomType);
-               return "/manage/addNewRoomType";
-           }
+    public String saveRoomType(@ModelAttribute RoomType roomType, @RequestParam MultipartFile[] files, Model model) {
+        RoomType newRoomType = roomTypeRepository.findByTypeName(roomType.getTypeName());
+        if (newRoomType != null) {
+            model.addAttribute("errorMessage", "Tên loại phòng đã tồn tại!!!");
+            model.addAttribute("roomType", roomType);
+            return "/manage/addNewRoomType";
+        }
         roomTypeRepository.save(roomType);
         StringBuffer fileNames = new StringBuffer();
         for (MultipartFile file : files) {
             Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename());
             try {
-                Files.write(fileNameAndPath,file.getBytes());
+                Files.write(fileNameAndPath, file.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -110,29 +110,29 @@ public class AdminController {
     }
 
     @GetMapping("/viewAllRoom")
-    public String viewAllRoom(Model model){
+    public String viewAllRoom(Model model) {
 
-            return listByPage(model, 1);
+        return listByPage(model, 1);
 
     }
 
     @GetMapping("viewAllRoom/page/{pageNumber}")
-    public String listByPage(Model model, @PathVariable("pageNumber") int currentPage ){
+    public String listByPage(Model model, @PathVariable("pageNumber") int currentPage) {
         Page<Room> rooms = roomServiceIF.getAllRoom(currentPage);
         int totalPages = rooms.getTotalPages();
         long totalItems = rooms.getTotalElements();
-        model.addAttribute("rooms",rooms);
-        model.addAttribute("totalPages",totalPages);
-        model.addAttribute("totalItems",totalItems);
-        model.addAttribute("currentPage",currentPage);
+        model.addAttribute("rooms", rooms);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
 
         return "/manage/viewAllRoom";
     }
 
     @PostMapping("searchRoom")
-    public String searchRoom(Model model, @RequestParam("searchRoom") String searchText){
+    public String searchRoom(Model model, @RequestParam("searchRoom") String searchText) {
         List<Room> rooms = roomServiceIF.getRoomSearch(searchText);
-        model.addAttribute("rooms",rooms);
+        model.addAttribute("rooms", rooms);
         return "/manage/viewSearchRoom";
     }
 
@@ -188,14 +188,14 @@ public class AdminController {
     }
 
     @GetMapping("/viewAllService/page/{pageNumber}")
-    public String listServiceByPage(Model model, @PathVariable("pageNumber") int currentPage ) {
+    public String listServiceByPage(Model model, @PathVariable("pageNumber") int currentPage) {
         Page<Service> services = hotelSVService.getAllserviceByPage(currentPage);
         int totalPages = services.getTotalPages();
         long totalItems = services.getTotalElements();
-        model.addAttribute("services",services);
-        model.addAttribute("totalPages",totalPages);
-        model.addAttribute("totalItems",totalItems);
-        model.addAttribute("currentPage",currentPage);
+        model.addAttribute("services", services);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("currentPage", currentPage);
 
         return "/manage/viewAllService";
     }
@@ -215,5 +215,17 @@ public class AdminController {
         return "redirect:/admin/viewAllService";
     }
 
+
+    @GetMapping("/deleteService/{serviceId}")
+    public String deleteService(@PathVariable int serviceId) {
+        serviceRepository.deleteById(serviceId);
+        return "redirect:/admin/viewAllService";
+    }
+
+    @GetMapping("/editService/{serviceId}")
+    public String editService(@PathVariable int serviceId, Model model) {
+        model.addAttribute("service", serviceRepository.findById(serviceId));
+        return "/manage/serviceForm";
+    }
 
 }

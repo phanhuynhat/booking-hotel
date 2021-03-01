@@ -40,11 +40,13 @@
                         <div class="panel-body">
                             <form class="form-horizontal" th:action="@{/admin/saveOrUpdate}" th:object="${service}" method="post">
                                     <legend>THÊM MỚI DỊCH VỤ</legend>
-                                    <div class="form-group">
+
+                                <input th:if="${#strings.containsIgnoreCase(#request.getRequestURL(),'edit')}" type="hidden" th:field="*{serviceId}">
+                                <div class="form-group">
                                         <label class="col-md-2 control-label" >Tên dịch vụ</label>
                                         <div class="col-md-10">
                                             <input class="form-control"  type="text" th:field="*{serviceName}" placeholder="Nhập tên dịch vụ">
-                                            <p th:if="${#fields.hasErrors('serviceName')}" th:errors="*{serviceName}">error placehoader</p>
+                                            <p th:if="${#fields.hasErrors('serviceName')}" th:errors="*{serviceName}" class="error">error placehoader</p>
 
                                         </div>
                                     </div>
@@ -52,7 +54,7 @@
                                         <label class="col-md-2 control-label" >Mô tả</label>
                                         <div class="col-md-10">
                                             <textarea th:field="*{description}"  style="width: 100%; resize: none" placeholder="Nhập mô tả"></textarea>
-                                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">error placehoader</p>
+                                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error">error placehoader</p>
 
                                         </div>
                                     </div>
@@ -61,7 +63,7 @@
                                             <label class="control-label col-md-2">đơn vị tính</label>
                                             <div class="col-md-10">
                                                 <input type="text" th:field="*{unit}" style="width: 100%" placeholder="Nhập Đơn vị tính">
-                                                <p th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}">error placehoader</p>
+                                                <p th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}" class="error">error placehoader</p>
                                             </div>
                                         </div>
 
@@ -69,7 +71,7 @@
                                     <label class="control-label col-md-2">Đơn giá</label>
                                     <div class="col-md-10">
                                         <input type="text" th:field="*{unitPrice}" style="width: 100%" placeholder="Nhập đơn giá">
-                                        <p th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}">error placehoader</p>
+                                        <p th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}" class="error">error placehoader</p>
 
                                     </div>
                                 </div>
@@ -97,7 +99,6 @@
         </div>
     </div>
 </div>
-
 <th:block th:include="./include/adminFooter"></th:block>
 
 </body>
