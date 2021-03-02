@@ -134,8 +134,7 @@
 
                                                 <h3 style="color:#3ac4fa;" id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">
                                                     Giảm giá:
-                                                    [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue,
-                                                    0,'COMMA')}]] Đ</h3>
+                                                    </h3>
 
                                                 <h3 style="color:#3ac4fa;">Tổng Thanh toán:
                                                     [[${#numbers.formatInteger(@bookingCart.calculateTotal(),

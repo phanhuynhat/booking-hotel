@@ -54,6 +54,9 @@ public class Booking {
     @OneToMany(mappedBy = "booking")
     private List<Transaction> transactions = new ArrayList<>();
 
+    @Transient
+    private double totalCharge;
+
 
     @Transient
     private double sumOfSubTotal;
@@ -74,6 +77,9 @@ public class Booking {
         } else {
             this.total = sumOfSubTotal;
         }
+
+        // tu dong tinh tong tien dich vu da su dung cho toan bo booking
+        this.totalCharge = charges.stream().mapToDouble(Charge::getTotal).sum();
     }
 
 

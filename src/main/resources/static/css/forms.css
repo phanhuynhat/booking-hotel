@@ -1,3 +1,11 @@
 p.error {
     color: red;
 }
+
+form > div * {
+    margin-right: 10px;
+}
+
+form > tr > th {
+    text-align: center;
+}

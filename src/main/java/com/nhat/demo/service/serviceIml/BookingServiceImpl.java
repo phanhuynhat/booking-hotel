@@ -61,4 +61,9 @@ public class BookingServiceImpl implements BookingServiceIF {
     public void removeBookingByPromotionCode(String bookingCode) {
         bookingRepository.deleteByBookingCode(bookingCode);
     }
+
+    @Override
+    public List<Booking> getCurrentStayBooking() {
+        return bookingRepository.findCurrentStayBooking();
+    }
 }
