@@ -1,10 +1,7 @@
 package com.nhat.demo.controller.client;
 
 
-import com.nhat.demo.entity.Booking;
-import com.nhat.demo.entity.BookingDetail;
-import com.nhat.demo.entity.BookingPerson;
-import com.nhat.demo.entity.CreditCard;
+import com.nhat.demo.entity.*;
 import com.nhat.demo.model.BookingCart;
 import com.nhat.demo.model.BookingDTO;
 import com.nhat.demo.model.BookingItem;
@@ -21,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -64,7 +62,6 @@ public class BookingController {
         LocalDate checkInDate = booking.getCheckInDate();
         model.addAttribute("isBeforeCheckInDate", now.isBefore(checkInDate));
         return "client/booking-done";
-
     }
 
 
@@ -72,7 +69,6 @@ public class BookingController {
     public String toBokingInfo(@RequestParam String bookingCode, Model model) {
         model.addAttribute("viewInfo", Boolean.TRUE);
         return "forward:/booking-done/" + bookingCode;
-
     }
 
     @Transactional(rollbackOn = Exception.class)
@@ -84,7 +80,7 @@ public class BookingController {
         String cardNumber = booking.getBookingPerson().getCardNumber();
         double amount = booking.getTotal() * 0.8;
 
-        creditCardService.tranferMoney(CreditCardServiceIF.HOTELCARD,cardNumber, amount );
+        creditCardService.tranferMoney(CreditCardServiceIF.HOTELCARD, cardNumber, amount);
         //xoa bo booking
         bookingService.removeBookingByPromotionCode(bookingCode);
 
@@ -188,6 +184,12 @@ public class BookingController {
         // gửi email
 
         emailService.sendMail(bookingPerson, bookingCode);
+
+        // xoa tat ca moi thu trong gio hang
+        bookingCart.setPromotion(new Promotion());
+        bookingCart.setCheckOutDate(null);
+        bookingCart.setCheckOutDate(null);
+        bookingCart.setBookingItems(new HashMap<>());
 
 
         return bookingCode;

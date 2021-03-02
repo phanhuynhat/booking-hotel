@@ -90,6 +90,14 @@
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="booking">
                                         <div class="single-room-details">
+                                            <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                    <th style="border: none">Ngày đến: [[${#temporals.format(@bookingCart.checkInDate,'dd/MM/yyyy')}]]</th>
+                                                    <th style="border: none">Ngày đi: [[${#temporals.format(@bookingCart.checkOutDate,'dd/MM/yyyy')}]]</th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
 
                                             <!-- bat dau vong lap-->
                                             <div class="single-room-details fix"
@@ -134,6 +142,8 @@
 
                                                 <h3 style="color:#3ac4fa;" id="promotion" th:if="${@bookingCart.promotion.promotionValue} != 0">
                                                     Giảm giá:
+                                                    [[${#numbers.formatInteger(@bookingCart.promotion.promotionValue,
+                                                    0,'COMMA')}]] Đ</h3>
                                                     </h3>
 
                                                 <h3 style="color:#3ac4fa;">Tổng Thanh toán:
@@ -153,7 +163,7 @@
                                                                 <input type="text" placeholder="Ngày đến" name="checkInDate" th:value="${#temporals.format(@bookingCart.checkInDate,'dd/MM/yyyy')}" readonly>
                                                             </div>
                                                             <div class="select-option">
-                                                                <input type="number" placeholder="Số người lớn" name="adults" required min="0">
+                                                                <input type="number" placeholder="Số người lớn" name="adults" required min="1">
                                                             </div>
                                                         </div>
                                                         <div class="single-form-part">
@@ -162,7 +172,7 @@
                                                                 <input type="text" placeholder="Ngày đi" name="checkOutDate" th:value="${#temporals.format(@bookingCart.checkOutDate,'dd/MM/yyyy')}" readonly>
                                                             </div>
                                                             <div class="select-option">
-                                                                <input type="number" placeholder="Số trẻ em" name="children" required min="0">
+                                                                <input type="number" placeholder="Số trẻ em" name="children" required min="1">
                                                             </div>
                                                         </div>
 
@@ -187,8 +197,8 @@
                                                             </div>
                                                             <div class="select-option" tabindex="4" required>
                                                                 <select name="gender">
-                                                                    <option value="" selected>Giới tính</option>
-                                                                    <option value="MALE">Nam</option>
+                                                                    <option value="">Giới tính</option>
+                                                                    <option value="MALE" selected>Nam</option>
                                                                     <option value="FEMALE">Nữ</option>
                                                                 </select>
                                                             </div>
@@ -199,7 +209,7 @@
                                                             </div>
                                                             <!--													for phone-->
                                                             <div class="name mb-15">
-                                                                <input type="text" placeholder="Số điện thoại" name="phone" tabindex="5" required>
+                                                                <input type="text" placeholder="Số điện thoại" name="phone" tabindex="5" required pattern="\d{10}" title="Số điện thoải phải là 10 ký tự số">
                                                             </div>
 
                                                         </div>
@@ -209,7 +219,7 @@
                                                             </div>
                                                             <!--for email -->
                                                             <div class="name mb-15">
-                                                                <input type="text" name="indentifyNo" placeholder="CMND" tabindex="6" required>
+                                                                <input type="text" name="indentifyNo" placeholder="CMND" tabindex="6" required pattern="\d{9}" title="Số CMND phải là 9 ký tự số">
                                                             </div>
 
                                                         </div>
@@ -231,13 +241,13 @@
                                                             <input type="text" name="ownerName" placeholder="Tên Chủ thẻ" required>
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="text" name="cardNumber" placeholder="Số tài khoản" required>
+                                                            <input type="text" name="cardNumber" placeholder="Số tài khoản" required pattern="\d{15}" title="Số tải khoản phải là 15 số">
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="number" name="expiryMonth" placeholder="Tháng hết hạn" required>
+                                                            <input type="number" name="expiryMonth" placeholder="Tháng hết hạn" required pattern="(^0?[1-9]$)|(^1[0-2]$)" title="Tháng phải từ số 1 đến 12">
                                                         </div>
                                                         <div class="single_form">
-                                                            <input type="number" name="expiryYear" placeholder="Năm hết hạn" required>
+                                                            <input type="number" name="expiryYear" placeholder="Năm hết hạn" required pattern="2\d{3}" title="Năm phải là 4 ký tự bắt đầu bằng số 2">
                                                         </div>
                                                         <div class="pay-money-form mt-40">
                                                             <div class="payment-card">

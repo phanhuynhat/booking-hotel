@@ -39,17 +39,17 @@ public class BookingCartController {
 
         //add vao cart
         bookingCart.addItem(bookingItem);
-        return "client/booking-information";
+        return "redirect:/cart/showCart";
 
     }
 
     @GetMapping("/removeRoom")
     public String removeRoom(@RequestParam int roomId) {
         bookingCart.removeItem(roomId);
-        if (bookingCart.getBookingItems().size()== 0) {
+        if (bookingCart.getBookingItems().size() == 0) {
             bookingCart.setPromotion(new Promotion());
         }
-        return "client/booking-information";
+        return "redirect:/cart/showCart";
     }
 
     @PostMapping("/checkPromotion")
@@ -67,7 +67,12 @@ public class BookingCartController {
         }
 
 
-        return "client/booking-information";
+        return "/client/booking-information";
     }
 
+    @GetMapping("/showCart")
+    public String showCartPage() {
+
+        return "/client/booking-information";
+    }
 }

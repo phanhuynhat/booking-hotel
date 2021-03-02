@@ -40,8 +40,7 @@ public class HomeController {
                                 @RequestParam @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate checkOutDate,
                                 @RequestParam int adults,
                                 @RequestParam int children) {
-
-
+        // lưu checkinDate,checkoutDate vao bookingCart
         bookingCart.setCheckInDate(checkInDate);
         bookingCart.setCheckOutDate(checkOutDate);
 

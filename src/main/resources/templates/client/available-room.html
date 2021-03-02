@@ -73,7 +73,7 @@
 						<div class="single-room-sapce">
 							<div th:if="${availableRooms.size()} == 0">
 								<h2>Rất tiếc không Có phòng nào phù hợp với thông
-								    tin bạn đã chọn, quay về <a href="/">trang chủ</a></h2>
+								    tin bạn đã chọn, quay về <a href="javascript:history.back()">trang Trước đó</a></h2>
 							</div>
 							<div class="col-md-4 col-sm-6 col-xs-12" th:each="room:${availableRooms}">
 								<div class="single-room mb-80">

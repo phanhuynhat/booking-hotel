@@ -21,6 +21,10 @@ $(document).ready(function () {
             }
         )
     });
+    $('input[name="ownerName"]').blur(function () {
+        $(this).val($(this).val().toUpperCase());   
+    });
+
 
 })
 
