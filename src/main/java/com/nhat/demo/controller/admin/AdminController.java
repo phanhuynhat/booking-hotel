@@ -1,15 +1,12 @@
 package com.nhat.demo.controller.admin;
 
-import com.nhat.demo.entity.Room;
-import com.nhat.demo.entity.RoomType;
-import com.nhat.demo.entity.RoomTypeImage;
-import com.nhat.demo.entity.Service;
-import com.nhat.demo.repository.RoomRepository;
-import com.nhat.demo.repository.RoomTypeRepository;
-import com.nhat.demo.repository.RoomtypeImageRepository;
-import com.nhat.demo.repository.ServiceRepository;
+import com.nhat.demo.entity.*;
+import com.nhat.demo.repository.*;
+import com.nhat.demo.service.BookingServiceIF;
+import com.nhat.demo.service.ChargeServiceIF;
 import com.nhat.demo.service.HotelSVServiceIF;
 import com.nhat.demo.service.RoomServiceIF;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -26,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping(value = "/admin")
 public class AdminController {
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/room";
@@ -46,6 +44,15 @@ public class AdminController {
 
     @Autowired
     ServiceRepository serviceRepository;
+
+    @Autowired
+    BookingRepository bookingRepository;
+
+    @Autowired
+    BookingServiceIF bookingService;
+
+    @Autowired
+    ChargeServiceIF chargeService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
@@ -227,5 +234,38 @@ public class AdminController {
         model.addAttribute("service", serviceRepository.findById(serviceId));
         return "/manage/serviceForm";
     }
+
+
+
+
+    @GetMapping("/viewCurrentStayBooking")
+    public String viewCurrentStayBooking(Model model) {
+        // lay danh sach cac booking hien dang o khach san tai ngay hien tai
+        List<Booking> currentStayBookings = bookingService.getCurrentStayBooking();
+        //lay danh muc dich vu
+        List<Service> services = serviceRepository.findAll();
+
+        model.addAttribute("bookings", currentStayBookings);
+        model.addAttribute("services", services);
+        return "/manage/viewCurrentStayBooking";
+    }
+
+
+    @PostMapping("/addServiceToBooking")
+    public String addServiceToBooking( Charge charge,
+                                      Model model) {
+        log.info("########################");
+        log.info(charge.toString());
+        chargeService.addCharge(charge);
+        return "redirect:/admin/viewCurrentStayBooking";
+    }
+
+    @GetMapping("/viewDetailConsumedSerice/{bookingId}")
+    public  String viewDetailConsumedSerice(@PathVariable int bookingId, Model model) {
+        Booking booking = bookingService.getBookingById(bookingId);
+        model.addAttribute("booking", booking);
+        return "/manage/viewDetailConsumedSerice";
+    }
+
 
 }

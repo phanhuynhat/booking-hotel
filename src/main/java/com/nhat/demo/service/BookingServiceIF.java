@@ -18,5 +18,7 @@ public interface BookingServiceIF {
 
     void removeBookingByPromotionCode(String bookingCode);
 
+    List<Booking> getCurrentStayBooking();
+
 
 }
