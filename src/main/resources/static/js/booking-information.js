@@ -63,11 +63,15 @@ $("#payForm").submit(function (event) {
                 } else if (result == "not enough") {
                     $('#credit-cart-error').html("Thẻ hiện không có đủ tiền");
                     return;
+                }else if (Array.isArray(result)) {
+                    $('#bookingInfoTab').off('click').click();
+                    var subString = result.join(", ");
+                    $('#duplicate-error').html("Xin lỗi! Phòng số " + subString + " đã có người đặt");
+                    return;
                 }
 
-
                 // neu thanh cong thi redirect den /booking-done/<bookingDone>
-                window.location.replace('/booking-done/' + result)
+                window.location.replace('/booking-done/' + result);
 
                 // $('#bookingCode').html('Mã đặt phòng của bạn là: ' + result.);
                 // $("#bookingInfoTab, #personalTab, #paymentTab, #doneTab").off('click');

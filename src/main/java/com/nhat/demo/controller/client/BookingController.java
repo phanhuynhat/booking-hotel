@@ -20,6 +20,7 @@ import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -137,16 +138,19 @@ public class BookingController {
             return result;
         }
 
-        // khi the hop le thi tien hanh
-        // tru tien khach hang ==> tang tien cua chu khach san (chuyen khoan)
+        // khi the hop le thi tien hanh kiem tra phong trong mot lan nua
+        List<Integer> duplicateRoom = roomService.getDuplicateRoom(bookingCart);
+        if ( !duplicateRoom.isEmpty()) {
+            return duplicateRoom;
 
-        //ta mot booking rooom
-        //tao n boookingdetail
-        //tao 1 person
+        }
 
-        // chuyen khoan
+
+            // chuyen khoan (tru tien khach hang ==> tang tien cua chu khach san
+
         creditCardService.tranferMoney(creditCard.getCardNumber(), CreditCardServiceIF.HOTELCARD, bookingCart.calculateTotal());
 
+        //ta mot booking rooom, tao n boookingdetail, tao 1 person
 
         // tao mot random String
         String bookingCode = bookingService.createBookingCode();
@@ -157,7 +161,7 @@ public class BookingController {
         // KHÔNG LƯU TRỮ BOOKING PRICE
         booking.setCheckInDate(bookingCart.getCheckInDate());
         booking.setCheckOutDate(bookingCart.getCheckOutDate());
-        // set mot promotion o bang promotion nếu có promotion
+        // set  bang promotion nếu có promotion
         if (bookingCart.getPromotion().getPromotionId() != 0) {
             booking.setPromotion(bookingCart.getPromotion());
         }
