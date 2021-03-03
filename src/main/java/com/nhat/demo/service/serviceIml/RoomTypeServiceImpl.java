@@ -18,4 +18,9 @@ public class RoomTypeServiceImpl implements RoomTypeServiceIF {
     public List<RoomType> getAllRoomType() {
         return roomTypeRepository.findAll();
     }
+
+    @Override
+    public RoomType getRoomType(int roomTypeId) {
+        return roomTypeRepository.findById(roomTypeId).orElse(null);
+    }
 }

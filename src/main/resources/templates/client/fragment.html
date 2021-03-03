@@ -21,8 +21,8 @@
         <!-- Responsive css -->
         <link rel="stylesheet" href="/css/responsive.css">
 
-        <!-- User style -->
-        <link rel="stylesheet" href="/css/custom.css">
+        <!--custom css for all page-->
+        <link rel="stylesheet" href="/css/clientcustom.css">
 
 
         <!-- Modernizr JS -->
@@ -68,6 +68,7 @@
                                         <nav>
                                             <ul>
                                                 <li><a href="/">Trang Chủ</a></li>
+                                                <li><a href="/lookup">Tra cứu đạt phòng</a></li>
                                                 <li><a href="/about-us">Về chúng tôi</a></li>
                                                 <li><a href="#">pages<i class="fa fa-angle-down"></i></a>
                                                     <ul class="dropdown_menu">
@@ -136,14 +137,14 @@
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="search-form-wrap">
                                     <button class="close-search"><i class="mdi mdi-close"></i></button>
-                                    <form action="/booking-info" method="GET" id="loopkUpFrom">
+                                    <form action="/booking-info" method="GET" class="loopkUpFrom">
                                         <input type="text" name="bookingCode" placeholder="Nhập mã booking" value="" required pattern="\w{4}-\w{4}-\w{4}" title="mã booking phải viết theo định dạng XXXX-XXXX-XXXX"/>
                                         <button class="search-button" type="submit">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </form>
 
-                                    <p id="not-found-error"></p>
+                                    <p class="not-found-error"></p>
                                 </div>
                             </div>
                         </div>
@@ -261,6 +262,8 @@
             <script src="/js/vendor/jquery-1.12.0.min.js"></script>
             <!-- Bootstrap framework js -->
             <script src="/js/bootstrap.min.js"></script>
+            <!-- date picker js -->
+            <script src="/js/vendor/bootstrap-datepicker.js"></script>
             <!--counter up js-->
             <script src="/js/waypoints.min.js"></script>
             <script src="/js/jquery.counterup.min.js"></script>
@@ -290,6 +293,9 @@
             <script src="/js/plugins.js"></script>
             <!-- Main js file that contents all jQuery plugins activation. -->
             <script src="/js/main.js"></script>
+            <!--custom js for all page-->
+            <script src="/js/clientCustom.js"></script>
+
         </div>
 
 

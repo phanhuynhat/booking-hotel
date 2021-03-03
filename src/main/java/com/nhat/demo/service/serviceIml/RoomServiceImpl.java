@@ -23,6 +23,11 @@ public class RoomServiceImpl implements RoomServiceIF {
     }
 
     @Override
+    public List<Room> getAvailableRoomByType(LocalDate checkInDate, LocalDate checkOutDate, int adults, int children, int roomTypeId) {
+        return roomRepository.findAvailableRoomByType(checkInDate, checkOutDate, adults, children, roomTypeId);
+    }
+
+    @Override
     public Room getRoomById(int id) {
         return roomRepository.findById(id).orElse(null);
     }

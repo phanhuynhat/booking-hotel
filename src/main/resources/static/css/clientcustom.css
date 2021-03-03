@@ -58,10 +58,13 @@
 }
 
 
-#credit-cart-error {
-    font-size: 2em;
+#credit-cart-error, .not-found-error {
+    font-size: 1.5em;
     color: red;
+    margin: 20px;
 }
+
+
 
 
 #cannot-cancel {

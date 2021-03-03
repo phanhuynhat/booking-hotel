@@ -63,9 +63,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="section-title mb-80 text-center">
-                                <h2>Booking <span>rooms</span></h2>
-                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                                    suffered by injected humour.</p>
+                                <h2>ĐẶT PHÒNG THÀNH CÔNG</h2>
+<!--                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have-->
+<!--                                    suffered by injected humour.</p>-->
                             </div>
                         </div>
                     </div>
@@ -73,193 +73,28 @@
                         <div class="col-md-12">
                             <div class="booking-rooms-tab">
                                 <ul class="nav" role="tablist">
-                                    <li><a href="#booking" data-toggle="tab"><span
-                                            class="tab-border">1</span><span>Booking Info</span></a></li>
-                                    <li><a href="#personal" data-toggle="tab"><span class="tab-border">2</span><span>Personal Info</span></a>
+                                    <li><a href="#booking" ><span
+                                            class="tab-border">1</span><span>Thông tin phòng</span></a></li>
+                                    <li><a href="#personal" ><span class="tab-border">2</span><span>Thông tin cá nhân</span></a>
                                     </li>
-                                    <li><a href="#payment" data-toggle="tab"><span
-                                            class="tab-border">3</span><span>payment Info</span></a></li>
+                                    <li><a href="#payment" ><span
+                                            class="tab-border">3</span><span>Thông tin thẻ</span></a></li>
                                     <li class="active">
-                                        <a href="#done" data-toggle="tab"><span class="tab-border">4</span><span>Booking Done</span></a>
+                                        <a href="#done" data-toggle="tab"><span class="tab-border">4</span><span>Đặt thành công</span></a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="service-tab-desc text-left mt-60">
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane" id="booking">
-                                        <div class="booking-info-deatils">
-                                            <div class="single-room-details fix">
-                                                <div class="room-img">
-                                                    <img src="images/room/roob-tab.jpg" alt="">
-                                                </div>
-                                                <div class="single-room-details pl-50">
-                                                    <h3 class="s_room_title">SINGLE Room</h3>
-                                                    <div class="room_price">
-                                                        <h4>Total Price</h4>
-                                                        <h5>$550 <span>/per night</span></h5>
-                                                        <h3 style="font-size: 25px">Mã đặt phòng của bạn là: [[${booking.bookingCode}]]</h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="single-room-booking-form mt-60">
-                                                <div class="booking_form_inner">
-                                                    <form action="#">
-                                                        <div class="single-form-part">
-                                                            <div class="date-to mb-20">
-                                                                <input class="date-picker" type="text" placeholder="arrive date"
-                                                                       value="arrive date">
-                                                                <i class="mdi mdi-calendar-text"></i>
-                                                            </div>
-                                                            <div class="select-option">
-                                                                <select>
-                                                                    <option value="1" selected>Room</option>
-                                                                    <option value="2">Room 2</option>
-                                                                    <option value="3">Room 3</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-form-part">
-                                                            <div class="date-to mb-20">
-                                                                <input class="date-picker" type="text"
-                                                                       placeholder="Departure Date" value="Departure Date">
-                                                                <i class="mdi mdi-calendar-text"></i>
-                                                            </div>
-                                                            <div class="select-option">
-                                                                <select>
-                                                                    <option value="1" selected>Children</option>
-                                                                    <option value="2">Mael</option>
-                                                                    <option value="3">lady</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="single-form-part">
-                                                            <div class="select-option mb-20">
-                                                                <select>
-                                                                    <option value="1" selected>Adult</option>
-                                                                    <option value="2">Teen</option>
-                                                                    <option value="3">Children</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="submit-form">
-                                                                <button type="submit">Check Availability</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <div class="booking-info-deatils"></div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="personal">
                                         <div class="personal-info-details">
-                                            <div class="booking-info-inner">
-                                                <form action="#">
-                                                    <div class="booking-form-list">
-                                                        <div class="single-form-part">
-                                                            <div class="name mb-15">
-                                                                <input type="text" placeholder="First Name">
-                                                            </div>
-                                                            <div class="select-option">
-                                                                <select>
-                                                                    <option value="1" selected>Smoking room</option>
-                                                                    <option value="2">Kitchen</option>
-                                                                    <option value="3">Bathroom</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-form-part">
-                                                            <div class="name mb-15">
-                                                                <input type="text" placeholder="Last Name">
-                                                            </div>
-                                                            <div class="select-option">
-                                                                <select>
-                                                                    <option value="1" selected>parking</option>
-                                                                    <option value="2">Rest house</option>
-                                                                    <option value="3">Gym room</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-form-part">
-                                                            <div class="mail mb-15">
-                                                                <input type="text" placeholder="Your Email" value="Your Email">
-                                                                <i class="mdi mdi-calendar-text"></i>
-                                                            </div>
-                                                            <div class="select-option">
-                                                                <select>
-                                                                    <option value="1" selected>With pet</option>
-                                                                    <option value="2">with favourit</option>
-                                                                    <option value="3">pet</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="request-box mt-15">
-                                                        <textarea placeholder="Any Specific Request"></textarea>
-                                                    </div>
-                                                    <div class="prve-next-box mt-40">
-                                                        <div class="back-link">
-                                                            <a href="#">Back</a>
-                                                        </div>
-                                                        <button type="submit">Next</button>
-                                                    </div>
-                                                </form>
-                                            </div>
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="payment">
-                                        <div class="payment-info">
-                                            <form action="#">
-                                                <div class="payment-form">
-                                                    <div class="payment-form-list">
-                                                        <div class="single_form">
-                                                            <input type="text" placeholder="Card Holder Name">
-                                                        </div>
-                                                        <div class="single_form">
-                                                            <input type="text" placeholder="Enter Creadit Card Number">
-                                                        </div>
-                                                        <div class="single_form">
-                                                            <div class="select-date">
-                                                                <select>
-                                                                    <option value="1" selected>Enter Month</option>
-                                                                    <option value="1">January</option>
-                                                                    <option value="1">February</option>
-                                                                    <option value="1">March</option>
-                                                                    <option value="1">April</option>
-                                                                    <option value="1">May</option>
-                                                                    <option value="1">June</option>
-                                                                    <option value="1">July</option>
-                                                                    <option value="1">August</option>
-                                                                    <option value="1">September</option>
-                                                                    <option value="1">October</option>
-                                                                    <option value="1">NOvember</option>
-                                                                    <option value="1">December</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single_form">
-                                                            <div class="select-date">
-                                                                <select>
-                                                                    <option value="1" selected>Enter Year</option>
-                                                                    <option value="1">2017</option>
-                                                                    <option value="1">2021</option>
-                                                                    <option value="1">2019</option>
-                                                                    <option value="1">2020</option>
-                                                                    <option value="1">2021</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="pay-money-form mt-40">
-                                                        <div class="payment-card">
-                                                            <a href="#"><img src="images/logo/pay-card.png" alt=""></a>
-                                                        </div>
-                                                        <div class="pay-order">
-                                                            <button type="submit">Pay now</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
+
                                     </div>
                                     <div role="tabpanel" class="tab-pane active" id="done">
                                         <div class="booking-done">
@@ -268,9 +103,9 @@
                                                     <thead>
                                                         <tr>
                                                             <th colspan="2">Ngày đến</th>
-                                                            <th th:text="${booking.checkInDate}"></th>
-                                                            <th colspan="2">Ngày đến</th>
-                                                            <th th:text="${booking.checkInDate}"></th>
+                                                            <th>[[${#temporals.format(booking.checkInDate,'dd-MM-yyyy')}]]</th>
+                                                            <th colspan="2">Ngày đi</th>
+                                                            <th>[[${#temporals.format(booking.checkOutDate,'dd-MM-yyyy')}]]</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Số phòng</th>
@@ -313,42 +148,26 @@
                                                         </tr>
                                                         <tr>
                                                             <th colspan="6">Thanh toán</th>
-                                                            <th>[[${#numbers.formatInteger(booking.total, 0,'COMMA')}]] Đ</th>
+                                                            <th>[[${#numbers.formatInteger(booking.total, 0,'COMMA')}]]
+                                                                Đ
+                                                            </th>
                                                         </tr>
                                                     </tfoot>
 
                                                 </table>
                                             </div>
-                                            <!--                                            the duoi nay chi xuat hien khi thuc hien booking-->
-                                            <div th:if="${#bools.isFalse(viewInfo)}" class="booking-done-description">
+                                            <div class="booking-done-description">
                                                 <div class="succesfully">
                                                     <h3>Chúc mừng bạn đã Đặt Phòng thành công</h3>
                                                     <p>Mã booking của bạn là:
-                                                        <span style="color:#3ac4fa; font-weight: bold">[[${bookingCode}]]</span>
+                                                        <span style="color:#3ac4fa; font-weight: bold; font-size: 1.5em">[[${bookingCode}]]</span>
                                                     </p>
-
                                                     <h4>Chúng tôi cũng đã gửi một email tới địa chỉ: <i>[[${booking.bookingPerson.email}]]</i>
                                                     </h4>
+                                                    <h4 style="color: red">Lưu ý: Bạn chỉ có thể huỷ đặt phòng trước ngày [[${#temporals.format(booking.checkInDate,'dd-MM-yyyy')}]] </h4>
+                                                    <h4 style="color: red">Chúng tôi sẽ tính phí huỷ đặt phòng là   20% trên số tiền thanh toán</h4>
                                                 </div>
                                             </div>
-                                            <div th:if="${viewInfo}" class="booking-done-description">
-                                                <div class="succesfully">
-                                                    <h4>Mã đặt phòng: <span>[[${booking.bookingCode}]]</span></h4>
-                                                    <h4>Ngày đặt: <span>[[${#temporals.format(booking.bookingDate, 'dd-MM-yyyy')}]]</span>
-                                                    </h4>
-                                                    <h4>Giờ Đăt: <span>[[${#temporals.format(booking.bookingDate, 'HH:mm')}]]</span>
-                                                    </h4>
-                                                    <h4>HỌ tên người đặt: <span>[[${booking.bookingPerson.lastName + ' ' + booking.bookingPerson.firstName}]]</span>
-                                                    </h4>
-                                                    <p th:if="${isBeforeCheckInDate == false}" id="cannot-cancel">Bạn
-                                                        không thể huỷ đặt phòng vì đã quá thời hạn được huỷ</p>
-                                                    <form th:if="${isBeforeCheckInDate}" action="/cancel-booking" method="POST">
-                                                        <input type="hidden" name="bookingCode" th:value="${booking.bookingCode}">
-                                                        <input type="submit" value="Huỷ Đặt phòng">
-                                                    </form>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>

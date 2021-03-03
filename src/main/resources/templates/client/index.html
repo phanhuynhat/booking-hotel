@@ -1,8 +1,9 @@
 <!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="client/fragment::baseHeader(~{::title},~{},~{})">
+<head th:replace="client/fragment::baseHeader(~{::title},~{::link},~{})">
 	<title>NHẬT - VƯƠNG HOTEL</title>
+	<link rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
@@ -45,12 +46,12 @@
 								<form th:action="@{/search-available-room}" method="POST">
 									<div class="b-date arrive mb-15">
 										<input class="date-picker" type="text" id="checkInDate" name="checkInDate"
-										       placeholder="Ngày đến" required readonly>
+										       placeholder="Ngày đến" required pattern="\d{2}\/\d{2}\/\d{4}" title="Bạn phải nhập theo đúng định dang dd/MM/yyyy">
 										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
 									<div class="b-date departure mb-15">
 										<input class="date-picker" type="text" id="checkOutDate" name="checkOutDate"
-										       placeholder="Ngày đi" required readonly>
+										       placeholder="Ngày đi" required pattern="\d{2}\/\d{2}\/\d{4}" title="Bạn phải nhập theo đúng định dang dd/MM/yyyy" >
 										<!--										<i class="mdi mdi-calendar-text"></i>-->
 									</div>
 									<div class="b-date mb-15"><input type="number" name="adults" placeholder="Số người lớn"
@@ -135,7 +136,8 @@
 						<div class="col-md-4" th:each="type: ${roomTypes}">
 							<div class="single-room">
 								<div class="room-img">
-									<a href="#"><img th:src="@{${type.roomTypeImages[0].path}}" alt=""></a>
+									<img th:src="@{${type.roomTypeImages[0].path}}" alt="">
+									<a th:href="@{/room-type-detail(roomTypeId=${type.roomTypeId})}" class="btn btn-primary">Xem Chi Tiết</a>
 								</div>
 								<div class="room-desc">
 									<div class="room-name">
@@ -145,7 +147,7 @@
 										<h5> [[${#numbers.formatInteger(type.unitPrice, 0,'COMMA')}]] Đ/Đêm</h5>
 									</div>
 									<div class="room-book">
-										<a href="#">Book now</a>
+										<a th:href="@{/book-by-type(roomTypeId=${type.roomTypeId})}">Đặt ngay</a>
 									</div>
 								</div>
 							</div>
@@ -751,48 +753,7 @@
 	<th:block th:include="client/fragment::footer-copyright"></th:block>
 	<!-- Footer end -->
 
-
-	<!-- Placed js at the end of the document so the pages load faster -->
-
-	<!-- jquery latest version -->
-	<script src="js/vendor/jquery-1.12.0.min.js"></script>
-
-	<!-- date picker js -->
-	<script src="js/vendor/bootstrap-datepicker.js"></script>
-
-	<!-- Bootstrap framework js -->
-	<script src="js/bootstrap.min.js"></script>
-	<!--counter up js-->
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<!-- Video player js -->
-	<script src="js/video-player.js"></script>
-	<!-- headlines js -->
-	<script src="js/animated-headlines.js"></script>
-	<!-- Ajax mail js -->
-	<script src="js/mailchimp.js"></script>
-	<!-- Ajax mail js -->
-	<script src="js/ajax-mail.js"></script>
-	<!-- parallax js -->
-	<script src="js/parallax.js"></script>
-	<!-- textilate js -->
-	<script src="js/textilate.js"></script>
-	<script src="js/lettering.js"></script>
-	<!--isotope js-->
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/packery-mode.pkgd.min.js"></script>
-	<!-- Style Customizer Js  -->
-	<script src="js/style-customizer.js"></script>
-	<!-- Owl carousel Js -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!--Magnificant js-->
-	<script src="js/jquery.magnific-popup.js"></script>
-	<!-- All js plugins included in this file. -->
-	<script src="js/plugins.js"></script>
-	<!-- Main js file that contents all jQuery plugins activation. -->
-	<script src="js/main.js"></script>
-	<script src="js/clientCustom.js"></script>
-
+	<div th:replace="client/fragment::javacriptLink"></div>
 	<script>
         $(function () {
             'use strict';

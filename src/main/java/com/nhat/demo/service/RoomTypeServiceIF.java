@@ -8,6 +8,8 @@ public interface RoomTypeServiceIF {
 
     List<RoomType> getAllRoomType();
 
+    RoomType getRoomType(int roomTypeId);
+
 
 
 }

@@ -5,11 +5,12 @@ import com.nhat.demo.entity.*;
 import com.nhat.demo.model.BookingCart;
 import com.nhat.demo.model.BookingDTO;
 import com.nhat.demo.model.BookingItem;
-import com.nhat.demo.repository.BookingDetailRepository;
 import com.nhat.demo.service.BookingServiceIF;
 import com.nhat.demo.service.CreditCardServiceIF;
 import com.nhat.demo.service.RoomServiceIF;
+import com.nhat.demo.service.RoomTypeServiceIF;
 import com.nhat.demo.service.serviceIml.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class BookingController {
     @Autowired
     private CreditCardServiceIF creditCardService;
@@ -35,20 +37,32 @@ public class BookingController {
     @Autowired
     private RoomServiceIF roomService;
 
-
     @Autowired
-    private BookingDetailRepository bookingDetailRepository;
+    private RoomTypeServiceIF roomTypeService;
+
+
+
 
 
     // xac nhan lai thong tin adults, children khi dat mot phong
     @GetMapping("/room-booking")
     public String toRoomBookingPages(@RequestParam int roomId, Model model) {
-        int childrenCapacity = roomService.getRoomById(roomId).getRoomType().getChildrenCapacity();
-        int adultCapacity = roomService.getRoomById(roomId).getRoomType().getAdultCapacity();
+        Room room = roomService.getRoomById(roomId);
+        int childrenCapacity = room.getRoomType().getChildrenCapacity();
+        int adultCapacity = room.getRoomType().getAdultCapacity();
         model.addAttribute("childrenCapacity", childrenCapacity);
         model.addAttribute("adultCapacity", adultCapacity);
+        model.addAttribute("room", room);
+
 
         return "client/room-booking";
+    }
+
+    @GetMapping("/book-by-type")
+    public String toBookByTypePage(@RequestParam int roomTypeId, Model model) {
+    // hien thi thong tin co ban cua loai phong
+        model.addAttribute("roomType", roomTypeService.getRoomType(roomTypeId));
+        return "client/book-by-type";
     }
 
 
@@ -56,19 +70,19 @@ public class BookingController {
     public String toBookingDonePage(@PathVariable String bookingCode, Model model) {
         Booking booking = bookingService.getBookingByBookingCode(bookingCode);
         model.addAttribute("booking", booking);
-
-        //phan nay dung de tao mot bien lam can cu de cho phep huy phong hay khong
-        LocalDate now = LocalDate.now();
-        LocalDate checkInDate = booking.getCheckInDate();
-        model.addAttribute("isBeforeCheckInDate", now.isBefore(checkInDate));
         return "client/booking-done";
     }
 
 
     @GetMapping("/booking-info")
     public String toBokingInfo(@RequestParam String bookingCode, Model model) {
-        model.addAttribute("viewInfo", Boolean.TRUE);
-        return "forward:/booking-done/" + bookingCode;
+        Booking booking = bookingService.getBookingByBookingCode(bookingCode);
+        //phan nay dung de tao mot bien lam can cu de cho phep huy phong hay khong
+        LocalDate now = LocalDate.now();
+        LocalDate checkInDate = booking.getCheckInDate();
+        model.addAttribute("isBeforeCheckInDate", now.isBefore(checkInDate));
+        model.addAttribute("booking", booking);
+        return "client/booking-done-info";
     }
 
     @Transactional(rollbackOn = Exception.class)
@@ -83,16 +97,14 @@ public class BookingController {
         creditCardService.tranferMoney(CreditCardServiceIF.HOTELCARD, cardNumber, amount);
         //xoa bo booking
         bookingService.removeBookingByPromotionCode(bookingCode);
-
-
         return "client/cancel-booking";
     }
 
 
-    // tim kiem bookingCode duoi database
+    // API kiem tra ma dong phong co ton tai hay khong
     @PostMapping("/lookup")
     @ResponseBody
-    public String toLookupPage(@RequestParam String bookingCode, Model Model) {
+    public String tocheckExistBookingCode(@RequestParam String bookingCode) {
         Booking booking = bookingService.getBookingByBookingCode(bookingCode);
         if (booking == null) {
             return "not found";
@@ -100,6 +112,11 @@ public class BookingController {
         return "found";
     }
 
+
+    @GetMapping("/lookup")
+    public String toLookUpForm() {
+        return "client/lookup";
+    }
 
     // khi ấn thanh toán
     @PostMapping("/booking-process")
