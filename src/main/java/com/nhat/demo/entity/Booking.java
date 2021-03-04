@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,5 +83,14 @@ public class Booking {
         this.totalCharge = charges.stream().mapToDouble(Charge::getTotal).sum();
     }
 
+    public String getLocalDateTimeFormatter(LocalDateTime time){
+        String formatLocalDateTime = time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss"));
+        return formatLocalDateTime;
+    }
+
+    public String getLocalDateFormatter(LocalDate time){
+        String formatLocalDate = time.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        return formatLocalDate;
+    }
 
 }
