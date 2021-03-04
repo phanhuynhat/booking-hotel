@@ -4,6 +4,7 @@ import com.nhat.demo.entity.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
@@ -23,5 +24,9 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
     @Query(nativeQuery = true, value = "select * from booking " +
             "where curdate() between check_in_date and check_out_date")
     List<Booking> findCurrentStayBooking();
+
+
+    @Query(nativeQuery =true, value = "select * from booking where booking_date between ?1 and ?2")
+    List<Booking> getBookingBetween(LocalDate startDate, LocalDate fromDate);
 
 }
