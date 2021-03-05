@@ -61,6 +61,11 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+                                    <br>
+                                    <br>
+                                    <a th:href="@{/admin/viewPayPage/__${booking.bookingId}__}">ĐẾN TRANG THANH TOÁN</a>
+                                    <br>
+                                    <br>
                                     <form th:action="@{/admin/viewDetailConsumedService/pdf}" method="GET">
                                         <input  th:field="*{booking.bookingId}" type="hidden"/>
                                         <button type="submit">IN HÓA ĐƠN THANH TOÁN</button>

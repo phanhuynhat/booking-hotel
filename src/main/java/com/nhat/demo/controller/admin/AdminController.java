@@ -207,7 +207,7 @@ public class AdminController {
     @PostMapping("searchRoom")
     public String searchRoom(Model model, @RequestParam("searchRoom") String searchText) {
         List<Room> rooms = roomServiceIF.getRoomSearch(searchText);
-        if (rooms != null) {
+        if (rooms == null) {
             model.addAttribute("errorMessage", "Không tìm thấy kết quả tương ứng!!!");
             return "/manage/viewSearchRoom";
         }
@@ -218,7 +218,7 @@ public class AdminController {
     @PostMapping("searchRoomType")
     public String searchRoomType(Model model, @RequestParam("searchRoomType") String searchText) {
         List<RoomType> roomTypes = roomTypeServiceIF.getSearchRoomType(searchText);
-        if (roomTypes != null) {
+        if (roomTypes == null) {
             model.addAttribute("errorMessage", "Không tìm thấy kết quả tương ứng!!!");
             return "/manage/viewSearchRoomType";
         }
@@ -267,6 +267,20 @@ public class AdminController {
     public String deleteRoomType(@PathVariable("roomTypeId") int roomTypeId) {
         roomTypeRepository.deleteById(roomTypeId);
         return "redirect:/admin/viewAllRoomType";
+    }
+
+    @GetMapping("viewAllAccount")
+    public String viewAllAccount(Model model) {
+        List<Account> accounts = accountRepository.findAll();
+        model.addAttribute("accounts", accounts);
+        return "/manage/viewAllAccount";
+    }
+
+    @GetMapping("/deleteAccount/{id}")
+    public String deleteAccount(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+//        request.userPrincipal.getName()
+
+        return "redirect:/admin/viewAllService";
     }
 
     @GetMapping("addNewAccount")
@@ -339,50 +353,6 @@ public class AdminController {
         return "/manage/viewReportBooking";
 
     }
-
-//    @GetMapping("viewAllRoom")
-//    public String viewAllRoom(Model model, HttpServletRequest request, RedirectAttributes redirect) {
-////        List<Room> rooms = roomRepository.findAll();
-////        model.addAttribute("rooms",rooms);
-////        return "/manage/viewAllRoom";
-//        request.getSession().setAttribute("roomList", null);
-//
-//        if(model.asMap().get("success") != null)
-//            redirect.addFlashAttribute("success",model.asMap().get("success").toString());
-//        return "redirect:/admin/viewAllRoom/page/1";
-//    }
-
-//    @GetMapping("viewAllRoom/page/{pageNumber}")
-//    public String viewALlRoomPage(HttpServletRequest request,
-//                                   @PathVariable int pageNumber, Model model) {
-//        PagedListHolder<?> pages = (PagedListHolder<?>) request.getSession().getAttribute("roomList");
-//        int pagesize = 7;
-//        List<Room> list = roomRepository.findAll();
-//        if (pages == null) {
-//            pages = new PagedListHolder<>(list);
-//            pages.setPageSize(pagesize);
-//        } else {
-//            final int goToPage = pageNumber - 1;
-//            if (goToPage <= pages.getPageCount() && goToPage >= 0) {
-//                pages.setPage(goToPage);
-//            }
-//        }
-//        request.getSession().setAttribute("rooms", pages);
-//        int current = pages.getPage() + 1;
-//        int begin = Math.max(1, current - list.size());
-//        int end = Math.min(begin + 5, pages.getPageCount());
-//        int totalPageCount = pages.getPageCount();
-//        String baseUrl = "/viewAllRoom/page/";
-//
-//        model.addAttribute("beginIndex", begin);
-//        model.addAttribute("endIndex", end);
-//        model.addAttribute("currentIndex", current);
-//        model.addAttribute("totalPageCount", totalPageCount);
-//        model.addAttribute("baseUrl", baseUrl);
-//        model.addAttribute("rooms", pages);
-//
-//        return "/manage/viewAllRoom";
-//    }
 
 
     @GetMapping("/viewAllService")
@@ -533,5 +503,13 @@ public class AdminController {
         return "/manage/viewDetailConsumedService";
     }
 
+    @GetMapping("/viewPayPage/{bookingId}")
+    public String viewPayPage(Model model,@PathVariable int bookingId) {
+        CreditCard creditCard = new CreditCard();
+        model.addAttribute("bookingId",bookingId);
+        model.addAttribute("creditCard",creditCard);
+        return "/manage/payPage";
+
+    }
 
 }
