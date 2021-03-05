@@ -316,7 +316,6 @@ public class AdminController {
             LocalDate newFromDate = LocalDate.parse(fromDate);
             LocalDate newToDate = LocalDate.parse(toDate);
             bookings = bookingRepository.getListSearchBookingFromTo(newFromDate, newToDate);
-            ;
             request.getSession().setAttribute("bookings", bookings);
 
         } else if (type.equals("excel")) {
@@ -449,8 +448,6 @@ public class AdminController {
     @PostMapping("/addServiceToBooking")
     public String addServiceToBooking(Charge charge,
                                       Model model) {
-        log.info("########################");
-        log.info(charge.toString());
         chargeService.addCharge(charge);
         return "redirect:/admin/viewCurrentStayBooking";
     }
