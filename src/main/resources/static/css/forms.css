@@ -9,3 +9,10 @@ form > div * {
 form > tr > th {
     text-align: center;
 }
+
+
+#credit-cart-error  {
+    font-size: 1.5em;
+    color: red;
+    margin: 20px;
+}

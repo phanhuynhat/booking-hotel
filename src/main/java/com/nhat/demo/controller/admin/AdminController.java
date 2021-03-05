@@ -79,6 +79,10 @@ public class AdminController {
     @Autowired
     ChargeRepository chargeRepository;
 
+
+    @Autowired
+    CreditCardServiceIF creditCardService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
         return "/manage/adminPage";
@@ -518,11 +522,44 @@ public class AdminController {
 
     @GetMapping("/viewPayPage/{bookingId}")
     public String viewPayPage(Model model,@PathVariable int bookingId) {
-        CreditCard creditCard = new CreditCard();
         model.addAttribute("bookingId",bookingId);
-        model.addAttribute("creditCard",creditCard);
         return "/manage/payPage";
 
     }
 
+    @PostMapping("/checkOut")
+    public String checkOut(@RequestParam String ownerName,
+                           @RequestParam String cardNumber,
+                           @RequestParam  String expiryMonth,
+                           @RequestParam String expiryYear,
+                           @RequestParam int bookingId,
+                           Model model) {
+
+        double totalCharge = bookingService.getBookingById(bookingId).getTotalCharge();
+
+
+        CreditCard creditCard = new CreditCard();
+
+        creditCard.setOwnerName(ownerName);
+        creditCard.setCardNumber(cardNumber);
+        creditCard.setExpiryMonth(expiryMonth);
+        creditCard.setExpiryYear(expiryYear);
+
+        // kiem tra tinh trang cua CreditCart
+        String result = creditCardService.ValidateCart(creditCard);
+        if (result.equals("not match") || result.equals("not enough")) {
+            model.addAttribute("message", "Thông tin thẻ không chính xác, hoặc không đủ tiền");
+            return viewPayPage(model, bookingId);
+//            return "redirect:/admin/viewPayPage/" + bookingId;
+        }
+
+
+        creditCardService.tranferMoney(creditCard.getCardNumber(), CreditCardServiceIF.HOTELCARD, totalCharge);
+        return "/manage/checkOutSuccess";
+
+    }
+
+
 }
+
+
