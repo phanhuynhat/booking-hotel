@@ -37,36 +37,37 @@
                 <div class="col-md-10">
                     <div class="content-box-large">
                         <div class="panel-body">
-                            <form class="form-horizontal"  method="post" >
+                            <form class="form-horizontal" th:action="@{/}" th:object="${creditCard}" method="post" >
 
                                 <legend style="text-align: center">THANH TOÁN</legend>
 
-                                <input type="hidden" name="bookingId">
+                                <input type="text" th:value="*{bookingId}" />
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >Tên chủ thẻ</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" placeholder="Tên chủ thẻ" type="text" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label" >Số tài khoản</label>
-                                    <div class="col-md-10">
-                                        <input class="form-control" placeholder="Số tài khoản" type="text" required pattern="\d{15}" title="Số tải khoản phải là 15 số">
+                                        <input class="form-control" placeholder="Tên chủ thẻ" type="text" th:field="*{ownerName} required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >Số tài khoản</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" placeholder="Tháng hết hạn" type="text" required pattern="(^0?[1-9]$)|(^1[0-2]$)" title="Tháng phải từ số 1 đến 12">
+                                        <input class="form-control" placeholder="Số tài khoản" type="text" th:field="*{cardNumber}  required pattern="\d{15}" title="Số tải khoản phải là 15 số">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label" >Số tài khoản</label>
+                                    <div class="col-md-10">
+                                        <input class="form-control" placeholder="Tháng hết hạn" type="text" th:field="*{expiryMonth}  required pattern="(^0?[1-9]$)|(^1[0-2]$)" title="Tháng phải từ số 1 đến 12">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 control-label" >Năm hết hạn</label>
                                     <div class="col-md-10">
-                                        <input class="form-control" placeholder="Năm hết hạn" type="text" required pattern="2\d{3}" title="Năm phải là 4 ký tự bắt đầu bằng số 2">
+                                        <input class="form-control" placeholder="Năm hết hạn" type="text" th:field="*{expiryYear} required pattern="2\d{3}" title="Năm phải là 4 ký tự bắt đầu bằng số 2">
                                     </div>
                                 </div>
                                 <br>

@@ -17,11 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,6 +33,7 @@ import java.util.List;
 
 @Controller
 @Slf4j
+@Transactional
 @RequestMapping(value = "/admin")
 public class AdminController {
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images/room";
@@ -276,11 +280,20 @@ public class AdminController {
         return "/manage/viewAllAccount";
     }
 
-    @GetMapping("/deleteAccount/{id}")
-    public String deleteAccount(@PathVariable int id, HttpServletRequest request, HttpServletResponse response) {
+    @GetMapping("deleteAccount/{id}")
+    public String deleteAccount(@PathVariable int id,Model model, Principal principal) {
 //        request.userPrincipal.getName()
-
-        return "redirect:/admin/viewAllService";
+        String currentName = principal.getName();
+        Account account = accountRepository.findById(id).orElse(null);
+        if(account.getUsername().equals(currentName)){
+            String errorMessage = null;
+            model.addAttribute("errorMessage","Tài khoản đang đăng nhập không được xóa");
+            List<Account> accounts = accountRepository.findAll();
+            model.addAttribute("accounts", accounts);
+            return "/manage/viewAllAccount";
+        }
+        accountRepository.deleteById(id);
+        return "redirect:/admin/viewAllAccount";
     }
 
     @GetMapping("addNewAccount")
@@ -305,7 +318,7 @@ public class AdminController {
         String encodePassword = EncryptPassword.encrypt(account.getPassword());
         account.setPassword(encodePassword);
         accountRepository.save(account);
-        return "/manage/addNewAccount";
+        return "redirect:/admin/viewAllAccount";
     }
 
     @GetMapping("viewReportBooking")
