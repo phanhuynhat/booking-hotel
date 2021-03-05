@@ -1,5 +1,7 @@
 package com.nhat.demo.controller.admin;
 
+import com.lowagie.text.DocumentException;
+import com.nhat.demo.config.ExportBill;
 import com.nhat.demo.config.ReportBookingExcelExporter;
 import com.nhat.demo.entity.*;
 import com.nhat.demo.repository.*;
@@ -70,6 +72,8 @@ public class AdminController {
     @Autowired
     EncryptPassword encryptPassword;
 
+    @Autowired
+    ChargeRepository chargeRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
@@ -291,31 +295,32 @@ public class AdminController {
     }
 
     @GetMapping("viewReportBooking")
-    public String viewReportBookingPage(Model model){
+    public String viewReportBookingPage(Model model) {
         Booking booking = new Booking();
-        model.addAttribute("booking",booking);
+        model.addAttribute("booking", booking);
         return "manage/viewReportBooking";
     }
 
 
-    @GetMapping ({"searchBookingDate","searchBookingDate/{type}"})
+    @GetMapping({"searchBookingDate", "searchBookingDate/{type}"})
     public String searchBookingDate(
-            @RequestParam (value = "fromDate", required = false)  String fromDate,
-            @RequestParam (value = "toDate", required = false) String toDate, Model model, HttpServletRequest request,
+            @RequestParam(value = "fromDate", required = false) String fromDate,
+            @RequestParam(value = "toDate", required = false) String toDate, Model model, HttpServletRequest request,
             HttpServletResponse response,
-            @PathVariable (value = "type",required = false) String type) throws IOException {
+            @PathVariable(value = "type", required = false) String type) throws IOException {
 
 
         List<Booking> bookings = null;
 
-        if(type == null){
+        if (type == null) {
             LocalDate newFromDate = LocalDate.parse(fromDate);
             LocalDate newToDate = LocalDate.parse(toDate);
-            bookings = bookingRepository.getListSearchBookingFromTo(newFromDate,newToDate);;
+            bookings = bookingRepository.getListSearchBookingFromTo(newFromDate, newToDate);
+            ;
             request.getSession().setAttribute("bookings", bookings);
 
-        } else if (type.equals("excel")){
-            bookings =  (List<Booking>) request.getSession().getAttribute("bookings");
+        } else if (type.equals("excel")) {
+            bookings = (List<Booking>) request.getSession().getAttribute("bookings");
             response.setContentType("application/octet-stream");
             DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
             String currentDateTime = dateFormatter.format(new Date());
@@ -330,8 +335,8 @@ public class AdminController {
         }
 
         double sumTotal = bookings.stream().mapToDouble(Booking::getTotal).sum();
-        model.addAttribute("bookings",bookings);
-        model.addAttribute("sumTotal",sumTotal);
+        model.addAttribute("bookings", bookings);
+        model.addAttribute("sumTotal", sumTotal);
         return "/manage/viewReportBooking";
 
     }
@@ -428,8 +433,6 @@ public class AdminController {
     }
 
 
-
-
     @GetMapping("/viewCurrentStayBooking")
     public String viewCurrentStayBooking(Model model) {
         // lay danh sach cac booking hien dang o khach san tai ngay hien tai
@@ -444,7 +447,7 @@ public class AdminController {
 
 
     @PostMapping("/addServiceToBooking")
-    public String addServiceToBooking( Charge charge,
+    public String addServiceToBooking(Charge charge,
                                       Model model) {
         log.info("########################");
         log.info(charge.toString());
@@ -452,11 +455,85 @@ public class AdminController {
         return "redirect:/admin/viewCurrentStayBooking";
     }
 
-    @GetMapping("/viewDetailConsumedSerice/{bookingId}")
-    public  String viewDetailConsumedSerice(@PathVariable int bookingId, Model model) {
-        Booking booking = bookingService.getBookingById(bookingId);
+//        @GetMapping({"/viewDetailConsumedService/{bookingId}","viewDetailConsumedService/pdf"})
+//    public  String viewDetailConsumedService(@PathVariable(value = "bookingId", required = false) int bookingId,
+//                                            @RequestParam(value = "pdf",required = false) String type,
+//                                            Model model,HttpServletRequest request,
+//                                            HttpServletResponse response) throws IOException, DocumentException {
+//        Booking booking = null;
+//        List<Charge> charges = null;
+//        if(type == null) {
+//            booking = bookingService.getBookingById(bookingId);
+//            request.getSession().setAttribute("booking", booking);
+//            charges = chargeRepository.getListChargeByBookingId(booking.getBookingId());
+//            request.getSession().setAttribute("charges", charges);
+//        } else if(type.equals("pdf"))
+//        {
+//            response.setContentType("application/pdf");
+//            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+//            String currentDateTime = dateFormatter.format(new Date());
+//
+//            String headerKey = "Content-Disposition";
+//            String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+//            response.setHeader(headerKey, headerValue);
+//
+//            request.getSession().getAttribute("booking");
+//            request.getSession().getAttribute("charges");
+//
+//            ExportBill exportBill = new ExportBill(booking,charges);
+//
+//            exportBill.export(response);
+//        }
+//        model.addAttribute("booking", booking);
+//        model.addAttribute("charges", charges);
+//        return "/manage/viewDetailConsumedService";
+//    }
+
+    @GetMapping("/viewDetailConsumedService/{bookingId}")
+    public String viewDetailConsumedService(@PathVariable(value = "bookingId", required = false) int bookingId,
+                                            Model model) {
+        Booking booking = null;
+        List<Charge> charges = null;
+
+        booking = bookingService.getBookingById(bookingId);
+
+        charges = chargeRepository.getListChargeByBookingId(booking.getBookingId());
+
+
         model.addAttribute("booking", booking);
-        return "/manage/viewDetailConsumedSerice";
+        model.addAttribute("charges", charges);
+        return "/manage/viewDetailConsumedService";
+    }
+
+
+    @GetMapping("viewDetailConsumedService/pdf")
+    public String exportPdf(@RequestParam int bookingId, Model model, HttpServletRequest request,
+                            HttpServletResponse response) throws IOException, DocumentException {
+        Booking booking = null;
+        List<Charge> charges = null;
+
+        booking = bookingService.getBookingById(bookingId);
+
+        charges = chargeRepository.getListChargeByBookingId(booking.getBookingId());
+
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=bill_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        request.getSession().getAttribute("booking");
+        request.getSession().getAttribute("charges");
+
+        ExportBill exportBill = new ExportBill(booking, charges);
+
+        exportBill.export(response);
+
+        model.addAttribute("booking", booking);
+        model.addAttribute("charges", charges);
+        return "/manage/viewDetailConsumedService";
     }
 
 

@@ -93,4 +93,18 @@ public class Booking {
         return formatLocalDate;
     }
 
+//    public String convertTotalChargeToString (double totalCharge){
+//        String totalChargeTypeString = Double.toString(totalCharge));
+//        return totalChargeTypeString;
+//    }
+
+    @Override
+    public String toString() {
+        return
+                "Ma Booking : " + bookingId + "\n" +
+                "Ten nguoi su dung :" + bookingPerson.getLastName() + " " + bookingPerson.getFirstName() + "\n" +
+                "So dien thoai : " + bookingPerson.getPhone() + "\n" +
+                "Tong tien cho cac dich vu ben duoi: " + totalCharge + " D";
+    }
+
 }

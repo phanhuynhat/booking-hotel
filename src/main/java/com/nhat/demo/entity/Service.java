@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +43,9 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<Charge> charges = new ArrayList<>();
 
+    public String convertUnitPriceToString(Double unitPrice){
+        String unitPriceTypeString = Double.toString(unitPrice);
+        return unitPriceTypeString;
+    }
 
 }

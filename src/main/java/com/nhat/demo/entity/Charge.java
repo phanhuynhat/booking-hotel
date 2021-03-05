@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Setter
 @Getter
@@ -53,5 +54,15 @@ public class Charge {
                 ", booking=" + booking +
                 ", service=" + service +
                 '}';
+    }
+
+    public String convertTotalToString(Double total){
+        String totalTypeString = Double.toString(total);
+        return totalTypeString;
+    }
+
+    public String convertQuantityToString(int quantity){
+        String quantityTypeString = Integer.toString(quantity);
+        return quantityTypeString;
     }
 }
