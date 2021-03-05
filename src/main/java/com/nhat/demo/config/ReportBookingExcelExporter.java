@@ -44,6 +44,7 @@ public class ReportBookingExcelExporter {
         createCell(row, 2, "Ngày Booking", style);
         createCell(row, 3, "Ngày Check In", style);
         createCell(row, 4, "Ngày Check Out", style);
+        createCell(row, 5, "Tổng tiền", style);
 
     }
 
@@ -52,10 +53,8 @@ public class ReportBookingExcelExporter {
         Cell cell = row.createCell(columnCount);
         if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
-//        } else if (value instanceof LocalDateTime) {
-//            cell.setCellValue(String.valueOf(value));
-//        } if (value instanceof LocalDate) {
-//            cell.setCellValue(String.valueOf(value));
+        } else if (value instanceof Double) {
+            cell.setCellValue((Double) value) ;
         } else {
             cell.setCellValue((String) value);
         }
@@ -79,6 +78,7 @@ public class ReportBookingExcelExporter {
             createCell(row, columnCount++, booking.getLocalDateTimeFormatter(booking.getBookingDate()), style);
             createCell(row, columnCount++, booking.getLocalDateFormatter(booking.getCheckInDate()), style);
             createCell(row, columnCount++, booking.getLocalDateFormatter(booking.getCheckOutDate()), style);
+            createCell(row, columnCount++, booking.getTotal(), style);
 
         }
     }

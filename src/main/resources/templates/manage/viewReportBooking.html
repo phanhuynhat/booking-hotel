@@ -39,7 +39,7 @@
                 <div class="col-md-10">
                     <div class="content-box-large">
                         <div class="panel-body">
-                            <form th:action="@{/admin/searchBookingDate}" method="POST">
+                            <form th:action="@{/admin/searchBookingDate}" method="GET">
                             <input  type="date" name="fromDate" placeholder="Từ ngày" required>
 
                             <input  type="date"  name="toDate" placeholder="Đến ngày" required>
@@ -56,6 +56,7 @@
                                     <th scope="col">Ngày CheckIn</th>
                                     <th scope="col">Ngày CheckOut</th>
                                     <th scope="col">Tổng tiền</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -65,19 +66,20 @@
                                     <td th:text="${booking.bookingDate}"></td>
                                     <td th:text="${booking.checkInDate}"></td>
                                     <td th:text="${booking.checkOutDate}"></td>
-                                    <td th:text="${booking.total}"></td>
-
-<!--                                    <td><a class="btn btn-info" th:href="@{/admin/editRoom/__${room.roomId}__ }">Edit</a></td>-->
-<!--                                    <td><a class="btn btn-danger" th:href="@{/admin/deleteRoom/__${room.roomId}__}"-->
-<!--                                           onclick="return ConfirmDelete();">Delete</a></td>-->
+                                    <td>[[${#numbers.formatInteger(booking.total,0,'COMMA')}]] Đ</td>
                                 </tr>
-<!--                                <tr>-->
-<!--                                    <td colspan="3" />-->
-<!--                                    <td><b th:text="${#aggregates.sum(bookings.?[total != null].![total])}" /></td>-->
-<!--                                </tr>-->
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><b>Tổng tiền tất cả:</b></td>
+                                    <td>[[${#numbers.formatInteger(sumTotal,0,'COMMA')}]] Đ</td>
+
+                                </tr>
                                 </tbody>
                             </table>
-                            <a href="/admin/searchBookingDate/{excel}">Export to EXCEL</a>
+                            <a href="/admin/searchBookingDate/excel">Export to EXCEL</a>
 <!--                            <a href="/admin/searchBookingDate/{excel}">Export to EXCEL</a>-->
 
                             <!--                            <div style="text-align: center">-->

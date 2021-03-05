@@ -1,6 +1,7 @@
 package com.nhat.demo.service;
 
 import com.nhat.demo.entity.Room;
+import com.nhat.demo.entity.RoomType;
 import com.nhat.demo.model.BookingCart;
 import org.springframework.data.domain.Page;
 
@@ -22,5 +23,6 @@ public interface RoomServiceIF {
     Page<Room> getAllRoom(int pageNumber);
 
     List<Room> getRoomSearch(String searchText);
+
 
 }
