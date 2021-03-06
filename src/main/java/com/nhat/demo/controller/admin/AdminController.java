@@ -83,6 +83,9 @@ public class AdminController {
     @Autowired
     CreditCardServiceIF creditCardService;
 
+    @Autowired
+    BookingDetailRepository bookingDetailRepository;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showAdminPage() {
         return "/manage/adminPage";
@@ -113,16 +116,24 @@ public class AdminController {
 
     @GetMapping("editRoom/{roomId}")
     public String editRoom(Model model, @PathVariable("roomId") int roomId) {
-        Room room = roomRepository.findById(roomId).orElse(null);
-        List<RoomType> roomTypeList = roomTypeRepository.findAll();
+        List<BookingDetail> bookingDetails = bookingDetailRepository.getListBookingDetailByRoomId(roomId);
+        if(bookingDetails.size() == 0){
+            Room room = roomRepository.findById(roomId).orElse(null);
+            List<RoomType> roomTypeList = roomTypeRepository.findAll();
 
-        model.addAttribute("room", room);
-        model.addAttribute("roomTypeList", roomTypeList);
-        return "/manage/editRoom";
+            model.addAttribute("room", room);
+            model.addAttribute("roomTypeList", roomTypeList);
+            return "/manage/editRoom";
+        }
+
+        model.addAttribute("errorMessage", "Phòng đã được đặt không được chỉnh sửa !!!");
+        return viewAllRoom(model);
+
+
     }
 
     @PostMapping("saveEditRoom")
-    public String saveEditRoom(@ModelAttribute Room room, Model model) {
+    public String saveEditRoom(@ModelAttribute Room room) {
 //        Room newRoom = roomRepository.findByRoomNumber(room.getRoomNumber());
 //        if(newRoom != null){
 //            model.addAttribute("errorMessage","Phòng đã tồn tại!!!");
@@ -136,9 +147,15 @@ public class AdminController {
     }
 
     @GetMapping("deleteRoom/{roomId}")
-    public String deleteRoom(@PathVariable("roomId") int roomId) {
-        roomRepository.deleteById(roomId);
-        return "redirect:/admin/viewAllRoom";
+    public String deleteRoom(@PathVariable("roomId") int roomId,Model model) {
+        List<BookingDetail> bookingDetails = bookingDetailRepository.getListBookingDetailByRoomId(roomId);
+        if(bookingDetails.size() == 0){
+            roomRepository.deleteById(roomId);
+            return "redirect:/admin/viewAllRoom";
+        }
+        model.addAttribute("errorMessage", "Phòng đã được đặt không được xóa !!!");
+        return viewAllRoom(model);
+
     }
 
 

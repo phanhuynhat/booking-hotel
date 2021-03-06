@@ -40,8 +40,9 @@
                     <div class="content-box-large">
                         <div class="panel-body">
                             <form th:action="@{/admin/searchBookingDate}" method="GET">
+                                <label> Từ ngày</label>
                             <input  type="date" name="fromDate" placeholder="Từ ngày" required>
-
+                                <label>Đến ngày</label>
                             <input  type="date"  name="toDate" placeholder="Đến ngày" required>
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i>Tìm</button>
                             </form>
