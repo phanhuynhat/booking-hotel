@@ -57,7 +57,7 @@
                                 <tr th:each="roomType : ${roomTypes}">
                                     <td th:text="${roomType.roomTypeId}"></td>
                                     <td th:text="${roomType.typeName}"></td>
-                                    <td th:text="${roomType.unitPrice}"></td>
+                                    <td>[[${#numbers.formatInteger(roomType.unitPrice,0,'COMMA')}]] Đ</td>
                                     <td th:text="${roomType.adultCapacity}"></td>
                                     <td th:text="${roomType.childrenCapacity}"></td>
                                     <td><a class="btn btn-info" th:href="@{/admin/editRoomType/__${roomType.roomTypeId}__}">Edit</a></td>

@@ -15,6 +15,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     @Query(nativeQuery = true,
             value = "select room.* from room inner join room_type using(room_type_id) " +
                     "where room_id NOT IN " +
+
                     "(select distinct room_id from booking_detail bd inner join booking b using(booking_id) " +
                     "where ?1 between check_in_date and  date_sub(check_out_date, interval 1 day) or" +
                     " ?2 between date_add(check_in_date, interval 1 day) and check_out_date or" +
